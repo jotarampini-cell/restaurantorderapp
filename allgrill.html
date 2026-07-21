@@ -148,7 +148,7 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   60% { transform: translateY(3px); }
 }
 
-/* Landing Page Content abajo (Sobrio Monocromático App Store) */
+/* Landing Page Content abajo (Alto Contraste Sobrio App Store) */
 .w-landing-content {
   position: relative; z-index: 4; padding: 28px 20px 60px;
   background: #0a0503;
@@ -156,54 +156,74 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 }
 
 .w-card {
-  background: rgba(255,255,255,0.04); backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 26px; padding: 24px 20px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 1.5px solid rgba(255,255,255,0.22); border-radius: 26px; padding: 24px 20px;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.6);
 }
 .w-card-tag {
   font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255,255,255,0.5); margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px;
+  color: #ffffff; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28);
+  padding: 5px 12px; border-radius: 8px; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px;
 }
-.w-card-tag svg { stroke: rgba(255,255,255,0.6); }
-.w-card h2 { font-size: 23px; font-weight: 800; color: #ffffff; letter-spacing: -.04em; line-height: 1.18; }
-.w-card p { font-size: 14px; color: rgba(255,255,255,0.68); line-height: 1.6; margin-top: 10px; }
+.w-card-tag svg { stroke: #ffffff; }
+.w-card h2 { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: -.04em; line-height: 1.18; }
+.w-card p { font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6; margin-top: 10px; }
 
-/* Trilogía Sobria 01-02-03 */
+/* Tarjeta Destacada de Alto Contraste Claro (App Store Today Highlight) */
+.w-card-light-accent {
+  background: rgba(255,255,255,0.95) !important; color: #0a0503 !important;
+  border: 1px solid #ffffff !important; box-shadow: 0 20px 48px rgba(0,0,0,0.7) !important;
+}
+.w-card-light-accent .w-card-tag {
+  background: rgba(10,5,3,0.1) !important; color: #0a0503 !important;
+  border: 1px solid rgba(10,5,3,0.2) !important;
+}
+.w-card-light-accent .w-card-tag svg { stroke: #0a0503 !important; }
+.w-card-light-accent h2 { color: #0a0503 !important; }
+.w-card-light-accent p { color: rgba(10,5,3,0.85) !important; }
+.w-card-light-accent .ceo-quote-box {
+  background: rgba(10,5,3,0.06) !important; border-left: 3px solid #0a0503 !important;
+}
+.w-card-light-accent .ceo-quote-box p { color: #0a0503 !important; }
+.w-card-light-accent .ceo-author { color: rgba(10,5,3,0.6) !important; }
+
+/* Trilogía Sobria Alto Contraste 01-02-03 */
 .ritual-num-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .ritual-num-item {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18);
   border-radius: 18px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start;
 }
 .ritual-num-badge {
-  font-size: 16px; font-weight: 800; color: #ffffff; background: rgba(255,255,255,0.1);
-  width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0;
+  font-size: 17px; font-weight: 800; color: #ffffff; background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0;
 }
-.ritual-num-body h4 { font-size: 14.5px; font-weight: 700; color: #ffffff; letter-spacing: -0.01em; }
-.ritual-num-body p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; line-height: 1.45; }
+.ritual-num-body h4 { font-size: 15px; font-weight: 700; color: #ffffff; letter-spacing: -0.01em; }
+.ritual-num-body p { font-size: 12.5px; color: rgba(255,255,255,0.85); margin-top: 3px; line-height: 1.45; }
 
 .w-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
 .w-stat-item {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22);
   border-radius: 18px; padding: 14px; text-align: center;
 }
-.w-stat-num { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; }
-.w-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.w-stat-num { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; }
+.w-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 2px; }
 
-/* Platos Estrella Sobrios */
+/* Platos Estrella Sobrios Alto Contraste */
 .w-dish-scroll { display: flex; gap: 14px; overflow-x: auto; margin-top: 16px; padding-bottom: 8px; }
 .w-dish-scroll::-webkit-scrollbar { display: none; }
 .w-dish-item {
-  flex: 0 0 240px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  flex: 0 0 240px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.24);
   border-radius: 24px; overflow: hidden; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
 .w-dish-item:hover, .w-dish-item:active { transform: translateY(-3px); }
 .w-dish-img { height: 160px; position: relative; }
 .w-dish-img img { width: 100%; height: 100%; object-fit: cover; }
 .w-dish-info { padding: 14px; }
 .w-dish-info h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-.w-dish-info p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.w-dish-info p { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .w-dish-price { font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 12px; display: flex; align-items: center; justify-content: space-between; }
 
 /* App Store Today Style Vertical Stories */
@@ -899,8 +919,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           </div>
         </div>
 
-        <!-- Sección 2: Liderazgo & Visión (CEOs con Mensaje) -->
-        <div class="w-card w-card-obsidian">
+        <!-- Sección 2: Liderazgo & Visión (CEOs con Mensaje en Alto Contraste) -->
+        <div class="w-card w-card-light-accent">
           <span class="w-card-tag">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
             LIDERAZGO & VISIÓN
