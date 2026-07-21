@@ -12,11 +12,23 @@
 <style>
 /* ─── tokens ─── */
 :root{
+  --primary:#2563eb;
+  --primary-light:#eff6ff;
+  --primary-fg:#ffffff;
+  --accent:#1abcfe;
   --bg:#F5F5F7; --surface:#FFFFFF;
   --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#8E8E93; --ink-4:#AEAEB2;
   --hair:rgba(0,0,0,.08); --fill:#EFEFF4; --fill-2:#E5E5EA;
   --green:#34C759; --wa:#25D366;
-  --shadow-s:0 1px 2px rgba(0,0,0,.05);
+  --card:#ffffff;
+  --border:#e8eaed;
+  --muted:#f3f4f6;
+  --muted-fg:#6b7280;
+  --fg:#111827;
+  --success:#16a34a;
+  --success-light:#f0fdf4;
+  --destructive:#dc2626;
+  --shadow-s:0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
   --shadow-m:0 4px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.05);
   --shadow-l:0 12px 40px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);
   --font:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
@@ -27,7 +39,7 @@ html,body{height:100%;overflow:hidden;background:#0a0503}
 body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
 
 /* ─── app shell ─── */
-#app{position:fixed;inset:0;display:flex;flex-direction:column;max-width:430px;margin:0 auto;
+#app{position:fixed;inset:0;display:flex;flex-direction:column;max-width:480px;margin:0 auto;
   background:var(--bg);overflow:hidden;
   box-shadow:0 0 80px rgba(0,0,0,.5)}
 
@@ -36,7 +48,7 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   padding:0 20px;background:var(--bg);transition:background .4s;z-index:80;position:relative}
 .sb-time{font-size:15px;font-weight:600;color:var(--status-fg,var(--ink));letter-spacing:-.01em}
 .sb-right{display:flex;align-items:center;gap:6px;color:var(--status-fg,var(--ink))}
-@media (max-width:430px){.statusbar{display:none}} /* en móvil real usa la barra del OS */
+@media (max-width:480px){.statusbar{display:none}}
 
 /* ─── body area ─── */
 .body-area{position:relative;flex:1;overflow:hidden}
@@ -53,7 +65,6 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .welcome-bg{position:absolute;inset:0;background:#0a0503}
 .welcome-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;
   opacity:.75;display:block}
-/* gradiente sobre la foto */
 .welcome-bg::after{content:"";position:absolute;inset:0;
   background:linear-gradient(
     to bottom,
@@ -62,7 +73,6 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
     rgba(0,0,0,.55) 65%,
     rgba(0,0,0,.88) 100%)}
 
-/* badge superior */
 .welcome-top{position:absolute;top:18px;left:0;right:0;display:flex;
   justify-content:space-between;align-items:flex-start;padding:0 22px;z-index:3}
 .w-status{display:flex;align-items:center;gap:8px;font-size:12px;
@@ -76,7 +86,6 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .w-fx .lbl{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
 .w-fx .val{font-size:15px;color:#fff;font-weight:700;letter-spacing:-.01em}
 
-/* cuerpo inferior */
 .welcome-body{position:relative;z-index:3;padding:0 26px calc(40px + var(--safe-b));
   margin-top:auto}
 .welcome-body .eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
@@ -135,7 +144,7 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .list{padding:12px 16px 0}
 .card{background:var(--surface);border-radius:var(--r);overflow:hidden;margin-bottom:14px;
   box-shadow:var(--shadow-m);cursor:pointer;
-  transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+  transition:transform .3s cubic-bezier(.2,.7,.2,1);position:relative}
 .card:active{transform:scale(.983)}
 .card .img{position:relative;height:168px;overflow:hidden}
 .card.feat .img{height:220px}
@@ -162,11 +171,15 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   background:rgba(0,0,0,.35);backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:8px}
-.addfab{position:absolute;bottom:-14px;right:14px;width:42px;height:42px;
+
+/* BOTÓN MÁS FIX: Posicionado dentro de la imagen sin quedar recortado */
+.addfab{position:absolute;bottom:12px;right:12px;width:38px;height:38px;
   border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
-  box-shadow:var(--shadow-l);z-index:3}
-.addfab svg{width:19px;height:19px;stroke-width:2.2}
-.card .body{padding:20px 16px 16px}
+  box-shadow:0 4px 14px rgba(0,0,0,.35);z-index:3;transition:transform .15s}
+.addfab:active{transform:scale(.9)}
+.addfab svg{width:18px;height:18px;stroke-width:2.2}
+
+.card .body{padding:18px 16px 16px}
 .card .body .eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);font-weight:600;margin-bottom:6px}
 .card .body h4{font-size:18px;font-weight:700;letter-spacing:-.025em}
@@ -230,7 +243,7 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   font-size:22px;border:none;cursor:pointer}
 .qty span{width:26px;text-align:center;font-weight:600;font-size:16px}
 
-/* ══════════ BOTONES ══════════ */
+/* ══════════ BOTONES Y COMPONENTES ══════════ */
 .btn{flex:1;height:54px;border:none;border-radius:14px;cursor:pointer;
   font-family:var(--font);font-weight:700;font-size:16px;letter-spacing:-.01em;
   background:var(--ink);color:#fff;
@@ -241,7 +254,6 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .btn.light{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-m)}
 .btn .amt{font-weight:700}
 
-/* ══════════ TOPBAR ══════════ */
 .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;
   padding:12px 16px;background:rgba(245,245,247,.78);backdrop-filter:blur(28px) saturate(180%);
   -webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.06)}
@@ -273,102 +285,149 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   color:var(--ink);font-weight:700;font-size:18px;letter-spacing:-.02em;align-items:baseline}
 .sm-row.tot .bs{font-size:11px;color:var(--ink-3);font-weight:500}
 
-/* ══════════ CHECKOUT ══════════ */
-.steps{display:flex;gap:6px;padding:12px 16px 0}
-.sd{flex:1;height:3px;border-radius:99px;background:var(--fill-2);transition:.3s}
-.sd.on{background:var(--ink)}
-.co-sec{padding:16px 16px 4px}
-.co-lbl{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.05em;
-  text-transform:uppercase;margin-bottom:12px}
-.seg3{display:flex;gap:8px}
-.seg3 .s{flex:1;padding:14px 8px;border-radius:14px;background:var(--surface);
-  box-shadow:var(--shadow-s);cursor:pointer;text-align:center;transition:.22s;
-  border:1.5px solid transparent}
-.seg3 .s.on{border-color:var(--ink)}
-.seg3 .s svg{width:20px;height:20px;color:var(--ink-3);margin-bottom:7px;
-  stroke-width:1.6;transition:.22s}
-.seg3 .s.on svg{color:var(--ink)}
-.seg3 .s .n{font-size:13px;font-weight:600}
-.seg3 .s .d{font-size:10px;color:var(--ink-3);margin-top:2px}
-.field{margin-top:10px}
-.field label{display:block;font-size:11px;color:var(--ink-2);font-weight:500;
-  margin-bottom:5px;padding-left:2px;letter-spacing:.02em}
-.field input{width:100%;background:var(--surface);border:1px solid var(--hair);
-  border-radius:12px;padding:14px;color:var(--ink);font-family:var(--font);
-  font-size:15px;outline:none;transition:.2s;box-shadow:var(--shadow-s)}
-.field input:focus{border-color:var(--ink)}
-.row2{display:flex;gap:8px}
-.row2 .field{flex:1}
-.pay{display:flex;align-items:center;gap:12px;padding:13px;margin-bottom:8px;
-  background:var(--surface);border-radius:14px;box-shadow:var(--shadow-s);
-  cursor:pointer;transition:.22s;border:1.5px solid transparent}
-.pay.on{border-color:var(--ink)}
-.pm-ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;
-  flex:0 0 44px;font-weight:800;font-size:14px;color:#fff;box-shadow:var(--shadow-s)}
-.pm-pagomovil{background:linear-gradient(140deg,#1e5bc4,#3f86ff)}
-.pm-zelle{background:linear-gradient(140deg,#6d1bb0,#a259ff)}
-.pm-usdt{background:linear-gradient(140deg,#0a8f68,#26c48a)}
-.pm-efectivo{background:linear-gradient(140deg,#4b7a3a,#5fb04a)}
-.pay .pm-info{flex:1}
-.pay .pm-info .n{font-size:14px;font-weight:600}
-.pay .pm-info .d{font-size:11px;color:var(--ink-3);margin-top:1px}
-.radio{width:22px;height:22px;border-radius:50%;border:1.8px solid var(--fill-2);
-  display:grid;place-items:center;transition:.2s}
-.pay.on .radio{border-color:var(--ink)}
-.pay.on .radio::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--ink)}
-.truo{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12px;
-  color:var(--ink-2);background:var(--surface);box-shadow:var(--shadow-s);
-  padding:12px 14px;border-radius:13px}
-.truo b{color:var(--ink);font-weight:700}
-.truo svg{width:16px;height:16px;color:var(--ink);flex:0 0 16px;stroke-width:1.8}
-.co-foot{position:sticky;bottom:0;padding:12px 16px calc(16px + var(--safe-b));
-  background:rgba(245,245,247,.88);backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);border-top:1px solid rgba(0,0,0,.06)}
-.co-total{display:flex;align-items:baseline;justify-content:space-between;
-  margin-bottom:10px;padding:0 2px}
-.co-total .l{font-size:13px;color:var(--ink-2)}
-.co-total .v{font-size:22px;font-weight:700;letter-spacing:-.03em}
-.co-total .v small{display:block;font-size:11px;color:var(--ink-3);font-weight:500;
-  text-align:right;letter-spacing:0}
+/* ══════════ CHECKOUT ESTILOS NUEVOS ══════════ */
+.co-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+}
+.co-header-top { display: flex; align-items: center; justify-content: space-between; }
+.co-header-title { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; }
+.co-header-total { text-align: right; }
+.co-header-total-label { font-size: 10px; font-weight: 700; color: var(--muted-fg); text-transform: uppercase; letter-spacing: .05em; }
+.co-header-total-amount { font-size: 16px; font-weight: 800; }
 
-/* ══════════ CONFIRM ══════════ */
-.confirm{padding:40px 22px;text-align:center;min-height:100%;
-  display:flex;flex-direction:column;align-items:center}
-.seal{width:80px;height:80px;border-radius:50%;margin:14px 0 4px;
-  background:var(--green);display:grid;place-items:center;
-  box-shadow:0 14px 32px -8px rgba(52,199,89,.5);
-  animation:pop .55s cubic-bezier(.2,1.5,.4,1)}
-@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
-.seal svg{width:38px;height:38px;color:#fff;stroke-width:2.6}
-.confirm h2{font-size:26px;font-weight:700;letter-spacing:-.03em;margin-top:14px}
-.confirm .sc{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:9px;max-width:260px}
-.track{display:flex;margin:26px 0 0;width:100%;justify-content:space-between}
-.track .ts{flex:1;text-align:center;position:relative}
-.track .ts::before{content:"";position:absolute;top:11px;left:-50%;right:50%;
-  height:2px;background:var(--fill-2)}
-.track .ts:first-child::before{display:none}
-.track .ts.done::before{background:var(--green)}
-.track .td{width:24px;height:24px;border-radius:50%;margin:0 auto 8px;
-  border:2px solid var(--fill-2);display:grid;place-items:center;
-  background:var(--bg);position:relative;z-index:2}
-.track .ts.done .td{border-color:var(--green);background:var(--green)}
-.track .ts.now .td{border-color:var(--green);animation:pulse 1.6s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,199,89,.5)}50%{box-shadow:0 0 0 7px rgba(52,199,89,0)}}
-.track .td svg{width:12px;height:12px;color:#fff;stroke-width:3}
-.track .tl{font-size:10px;color:var(--ink-3);font-weight:500}
-.track .ts.done .tl,.track .ts.now .tl{color:var(--ink)}
-.wa-card{margin:26px 0 0;width:100%;text-align:left;background:var(--surface);
-  border-radius:16px;overflow:hidden;box-shadow:var(--shadow-m)}
-.wa-head{display:flex;align-items:center;gap:10px;padding:12px 14px;
-  border-bottom:1px solid var(--hair)}
-.wa-head .wic{width:32px;height:32px;border-radius:50%;background:var(--wa);
-  display:grid;place-items:center}
-.wa-head .wic svg{width:18px;height:18px;color:#fff}
-.wa-head .wn{font-size:14px;font-weight:600}
-.wa-head .ws{font-size:11px;color:var(--green)}
-.wa-msg{padding:14px;font-size:12px;line-height:1.65;color:var(--ink);
-  white-space:pre-line;background:#F7F7F9}
-.wa-msg .bar{font-weight:700}
+.co-progress { display: flex; gap: 6px; margin-top: 12px; }
+.co-progress-step { flex: 1; }
+.co-progress-bar { height: 5px; border-radius: 3px; background: var(--muted); transition: background .3s; }
+.co-progress-bar.active { background: var(--fg); }
+.co-progress-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted-fg); margin-top: 4px; transition: color .3s; }
+.co-progress-label.active { color: var(--fg); }
+
+.co-main { padding: 18px 16px 120px; }
+.step-title { font-size: 21px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+.step-sub { font-size: 13px; color: var(--muted-fg); margin-bottom: 20px; }
+
+.co-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-s); padding: 16px; }
+.co-card + .co-card { margin-top: 10px; }
+.card-interactive { cursor: pointer; transition: all .2s; }
+.card-interactive:hover { border-color: #a5b4fc; box-shadow: var(--shadow-m); transform: translateY(-1px); }
+.card-interactive.selected { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+
+.radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
+.radio.selected { border-color: var(--primary); background: var(--primary); }
+.radio-dot { width: 7px; height: 7px; border-radius: 50%; background: white; }
+
+.input, select.input {
+  width: 100%; padding: 12px 14px; font-size: 14px; font-family: inherit;
+  color: var(--fg); background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 11px; outline: none; transition: all .2s; appearance: none; -webkit-appearance: none;
+}
+.input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+.input-label { font-size: 11px; font-weight: 700; color: var(--muted-fg); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; display: block; }
+.input-group { margin-bottom: 14px; }
+select.input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; padding-right: 40px;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px 22px; font-size: 15px; font-weight: 700; font-family: inherit;
+  color: #1a2a4a; background: white; border: 2px solid var(--accent);
+  border-radius: 13px; cursor: pointer; transition: all .25s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.btn-primary:hover { box-shadow: 0 6px 20px rgba(26,188,254,.3), 0 2px 8px rgba(26,188,254,.15); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0) scale(.98); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-sm { padding: 10px 20px; font-size: 13px; }
+
+.seg { display: flex; background: var(--muted); padding: 5px; border-radius: 11px; gap: 4px; margin-bottom: 20px; }
+.seg-btn { flex: 1; padding: 9px; font-size: 13px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: all .2s; font-family: inherit; background: none; color: var(--muted-fg); }
+.seg-btn.active { background: var(--primary); color: white; box-shadow: var(--shadow-s); }
+
+.mode-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: background .2s; }
+.card-interactive.selected .mode-icon { background: var(--primary); }
+.mode-title { font-size: 14px; font-weight: 700; }
+.mode-desc { font-size: 12px; color: var(--muted-fg); margin-top: 2px; }
+.mode-badge { font-size: 10px; font-weight: 700; background: var(--primary-light); color: var(--primary); border-radius: 99px; padding: 2px 8px; margin-top: 4px; display: inline-block; }
+
+.summary-box { background: var(--muted); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 14px; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+.summary-row + .summary-row { margin-top: 8px; }
+.summary-label { color: var(--muted-fg); display: flex; align-items: center; gap: 6px; }
+.summary-value { font-weight: 600; }
+.summary-divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+.pay-row { display: flex; align-items: center; justify-content: space-between; background: var(--card); border: 1px solid var(--border); border-radius: 11px; padding: 12px 14px; }
+.pay-row + .pay-row { margin-top: 8px; }
+.pay-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted-fg); }
+.pay-value { font-size: 14px; font-weight: 700; margin-top: 2px; }
+.pay-amount { background: var(--primary-light); border-color: rgba(37,99,235,.2); }
+.pay-amount .pay-value { color: var(--primary); font-size: 16px; }
+.copy-btn { background: none; border: none; cursor: pointer; padding: 7px; border-radius: 8px; color: var(--muted-fg); transition: all .2s; display: flex; }
+.copy-btn:hover { background: var(--muted); color: var(--fg); }
+.copy-btn.copied { color: var(--success); background: var(--success-light); }
+
+.upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: all .2s; }
+.upload-zone:hover { border-color: var(--accent); background: rgba(26,188,254,.03); }
+.upload-zone.has-file { border-color: rgba(37,99,235,.3); background: var(--primary-light); cursor: default; }
+.upload-icon { font-size: 26px; margin-bottom: 6px; }
+.upload-text { font-size: 13px; font-weight: 600; }
+.upload-sub { font-size: 11px; color: var(--muted-fg); margin-top: 3px; }
+.file-preview { display: flex; align-items: center; gap: 10px; text-align: left; }
+.file-icon-box { width: 38px; height: 38px; background: rgba(37,99,235,.1); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+.file-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.file-size { font-size: 11px; color: var(--muted-fg); }
+.file-remove { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 7px; color: var(--destructive); margin-left: auto; flex-shrink: 0; font-size: 16px; transition: background .2s; }
+.file-remove:hover { background: rgba(220,38,38,.1); }
+
+.trust-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: #15803d; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 5px 10px; }
+
+.success-circle { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #22c55e, #16a34a); display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; box-shadow: 0 4px 20px rgba(22,163,74,.3); }
+.conf-number { font-size: 17px; font-weight: 800; letter-spacing: 2px; color: var(--primary); background: var(--primary-light); padding: 8px 18px; border-radius: 9px; display: inline-block; }
+
+.sticky-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 16px calc(12px + var(--safe-b)); background: rgba(255,255,255,.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(0,0,0,.06); z-index: 40; }
+.sticky-inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sticky-total-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted-fg); }
+.sticky-total-amount { font-size: 19px; font-weight: 800; }
+.sticky-btn { width: auto; flex-shrink: 0; padding: 12px 22px; font-size: 14px; }
+
+.accordion-body { overflow: hidden; max-height: 0; transition: max-height .45s cubic-bezier(.16,1,.3,1), opacity .3s; opacity: 0; }
+.accordion-body.open { max-height: 850px; opacity: 1; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fadeUp .45s cubic-bezier(.16,1,.3,1) both; }
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-3 { gap: 12px; }
+.gap-2 { gap: 8px; }
+.flex-1 { flex: 1; }
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mt-6 { margin-top: 24px; }
+.mb-2 { margin-bottom: 8px; }
+.text-center { text-align: center; }
+.text-sm { font-size: 13px; }
+.text-xs { font-size: 11px; }
+.font-bold { font-weight: 700; }
+.hidden { display: none !important; }
+.step-screen { display: none; }
+.step-screen.active { display: block; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+.text-muted { color: var(--muted-fg); }
+.text-primary { color: var(--primary); }
+.text-success { color: var(--success); }
+.text-error { color: var(--destructive); font-size: 11px; margin-top: 4px; font-weight: 600; }
+.section-num { width: 20px; height: 20px; border-radius: 50%; background: rgba(37,99,235,.15); color: var(--primary); font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-title { font-size: 13px; font-weight: 700; }
+.dimmed { opacity: .4; pointer-events: none; filter: grayscale(.5); transition: opacity .3s; }
 
 /* ══════════ TOAST ══════════ */
 .toast{position:absolute;left:50%;bottom:100px;
@@ -487,93 +546,452 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
         <div style="height:120px"></div>
         <div class="co-foot">
           <button class="btn spread" onclick="go('checkout')">
-            <span>Continuar</span>
+            <span>Continuar al Pago</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
       </div>
     </div>
 
-    <!-- ══ CHECKOUT ══ -->
+    <!-- ══ CHECKOUT MODERNO MULTI-STEP ══ -->
     <div class="scroll" id="coScroll" style="display:none">
       <div class="screen" id="s-checkout">
-        <div class="topbar">
-          <div class="back" onclick="go('cart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg></div>
-          <div class="tt">Pago<small>Último paso</small></div>
-        </div>
-        <div class="steps"><div class="sd on"></div><div class="sd on"></div><div class="sd"></div></div>
-        <div class="co-sec"><div class="co-lbl">Entrega</div>
-          <div class="seg3" id="segEntrega">
-            <div class="s on" data-e="Delivery">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 13h11v5H3zM14 8h4l3 4v6h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-              <div class="n">Delivery</div><div class="d">25–35 min</div>
+        
+        <!-- HEADER CHECKOUT -->
+        <header class="co-header">
+          <div class="co-header-top">
+            <div class="flex items-center gap-2">
+              <div class="back" onclick="go('cart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg></div>
+              <span class="co-header-title">Checkout</span>
             </div>
-            <div class="s" data-e="Retiro">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2h12l-1 7H7L6 2zM4 9h16v12H4z"/></svg>
-              <div class="n">Retiro</div><div class="d">15 min</div>
-            </div>
-            <div class="s" data-e="Mesa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
-              <div class="n">Mesa</div><div class="d">Mesa 12</div>
+            <div class="co-header-total">
+              <div class="co-header-total-label">Total</div>
+              <div class="co-header-total-amount" id="header-total">$0</div>
             </div>
           </div>
-          <div id="deliveryFields">
-            <div class="field"><label>Nombre</label><input id="iNombre" value="Juan"></div>
-            <div class="field"><label>Dirección</label><input id="iDireccion" value="Res. Camoruco, PB, Apto 2"></div>
-            <div class="row2">
-              <div class="field"><label>WhatsApp</label><input id="iTelefono" value="0424 451 7727"></div>
-              <div class="field"><label>Zona</label><input id="iZona" value="Valencia Norte"></div>
+          <div class="co-progress" id="progress-bar">
+            <div class="co-progress-step">
+              <div class="co-progress-bar active" id="pb-0"></div>
+              <div class="co-progress-label active" id="pl-0">Entrega</div>
+            </div>
+            <div class="co-progress-step">
+              <div class="co-progress-bar" id="pb-1"></div>
+              <div class="co-progress-label" id="pl-1">Datos</div>
+            </div>
+            <div class="co-progress-step">
+              <div class="co-progress-bar" id="pb-2"></div>
+              <div class="co-progress-label" id="pl-2">Pago</div>
+            </div>
+            <div class="co-progress-step">
+              <div class="co-progress-bar" id="pb-3"></div>
+              <div class="co-progress-label" id="pl-3">Listo</div>
             </div>
           </div>
-        </div>
-        <div class="co-sec"><div class="co-lbl">Método de pago</div>
-          <div id="payList">
-            <div class="pay on" data-p="Pago Móvil"><div class="pm-ic pm-pagomovil">PM</div><div class="pm-info"><div class="n">Pago Móvil</div><div class="d">Bolívares · a tasa BCV</div></div><div class="radio"></div></div>
-            <div class="pay" data-p="Zelle"><div class="pm-ic pm-zelle">Z</div><div class="pm-info"><div class="n">Zelle</div><div class="d">Dólares</div></div><div class="radio"></div></div>
-            <div class="pay" data-p="USDT · Binance"><div class="pm-ic pm-usdt">₮</div><div class="pm-info"><div class="n">USDT · Binance</div><div class="d">Cripto · red BEP-20</div></div><div class="radio"></div></div>
-            <div class="pay" data-p="Efectivo"><div class="pm-ic pm-efectivo">$</div><div class="pm-info"><div class="n">Efectivo</div><div class="d">Divisas o Bs al recibir</div></div><div class="radio"></div></div>
-          </div>
-          <div class="truo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4Z"/><path d="M9 12l2 2 4-4"/></svg>
-            <span>Pago verificado al instante con <b>Truo&nbsp;Pay</b>. El local confirma sin pedirte captura.</span>
-          </div>
-        </div>
-        <div style="height:16px"></div>
-        <div class="co-foot">
-          <div class="co-total">
-            <div class="l">Total a pagar</div>
-            <div class="v" id="coUsd">$0,00<small id="coBs">Bs 0,00</small></div>
-          </div>
-          <button class="btn" onclick="confirmOrder()">
-            <svg viewBox="0 0 24 24" fill="var(--wa)" style="width:19px;height:19px"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.45A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.94.94-3.02-.2-.31A8.2 8.2 0 1 1 12 20.2Zm5.5-5.8c-.3-.15-1.8-.9-2.05-1-.28-.1-.48-.15-.68.15s-.78 1-.95 1.2c-.18.2-.35.22-.65.08a8.2 8.2 0 0 1-2.4-1.48 9 9 0 0 1-1.67-2.07c-.17-.3 0-.46.13-.6.13-.14.3-.35.44-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.63-.93-2.23-.24-.58-.5-.5-.68-.5l-.58-.02c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5 0 1.48 1.08 2.9 1.23 3.1.15.2 2.12 3.23 5.13 4.53.72.3 1.28.5 1.72.63.72.23 1.38.2 1.9.12.58-.08 1.8-.73 2.05-1.45.25-.72.25-1.33.18-1.45-.08-.13-.28-.2-.58-.35Z"/></svg>
-            <span>Confirmar por WhatsApp</span>
-          </button>
-        </div>
-      </div>
-    </div>
+        </header>
 
-    <!-- ══ CONFIRMACIÓN ══ -->
-    <div class="scroll" id="okScroll" style="display:none">
-      <div class="screen" id="s-ok">
-        <div class="confirm">
-          <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7"/></svg></div>
-          <h2>Pedido enviado</h2>
-          <div class="sc">Le llegó a All Grill por WhatsApp, ya organizado. Te confirman en un momento.</div>
-          <div class="track">
-            <div class="ts done"><div class="td"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7"/></svg></div><div class="tl">Enviado</div></div>
-            <div class="ts now"><div class="td"></div><div class="tl">Confirmando</div></div>
-            <div class="ts"><div class="td"></div><div class="tl">En parrilla</div></div>
-            <div class="ts"><div class="td"></div><div class="tl">En camino</div></div>
-          </div>
-          <div class="wa-card">
-            <div class="wa-head">
-              <div class="wic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.45A10 10 0 1 0 12 2Z"/></svg></div>
-              <div><div class="wn">All Grill</div><div class="ws">en línea</div></div>
+        <!-- MAIN CHECKOUT STEPS -->
+        <main class="co-main">
+
+          <!-- ── STEP 1: ENTREGA ── -->
+          <div class="step-screen active fade-up" id="step-entrega">
+            <div class="step-title">¿Cómo recibes tu pedido?</div>
+            <div class="step-sub">Elige la modalidad y completa los detalles</div>
+
+            <!-- Delivery Local -->
+            <div class="co-card card-interactive" id="mode-local" onclick="selectMode('local')">
+              <div class="flex items-center gap-3">
+                <div class="mode-icon">🏍️</div>
+                <div class="flex-1">
+                  <div class="mode-title">Delivery Local</div>
+                  <div class="mode-desc">Te lo llevamos a tu dirección</div>
+                  <div class="mode-badge">25–35 min</div>
+                </div>
+                <div class="radio" id="radio-local"></div>
+              </div>
+              <div class="accordion-body" id="body-local">
+                <div style="padding-top:14px; border-top:1px solid var(--border); margin-top:12px;">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="section-num">1</div>
+                    <span class="section-title">¿En qué ciudad te encuentras?</span>
+                  </div>
+                  <div class="input-group">
+                    <select class="input" id="city-select" onchange="onCityChange()">
+                      <option value="">Selecciona tu ciudad</option>
+                      <option value="valencia">Valencia</option>
+                      <option value="caracas">Caracas</option>
+                    </select>
+                  </div>
+
+                  <div id="zone-section" class="dimmed">
+                    <div class="flex items-center gap-2 mb-2 mt-4">
+                      <div class="section-num">2</div>
+                      <span class="section-title">¿En qué zona?</span>
+                    </div>
+                    <div class="input-group">
+                      <select class="input" id="zone-select" onchange="onZoneChange()">
+                        <option value="">Selecciona la zona</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div id="address-section" class="dimmed">
+                    <div class="flex items-center gap-2 mb-2 mt-4">
+                      <div class="section-num">3</div>
+                      <span class="section-title">Tu dirección exacta</span>
+                    </div>
+                    <div class="input-group">
+                      <input class="input" type="text" id="local-address" placeholder="Calle, edificio, apto..." oninput="checkLocalReady()" />
+                    </div>
+                    <div class="input-group">
+                      <label class="input-label">Punto de referencia (opcional)</label>
+                      <input class="input" type="text" id="local-ref" placeholder="Ej: cerca de la plaza..." />
+                    </div>
+
+                    <div id="local-summary" class="summary-box hidden fade-up">
+                      <div class="summary-row">
+                        <span class="summary-label">📍 Zona</span>
+                        <span class="summary-value" id="sum-zone">—</span>
+                      </div>
+                      <div class="summary-divider"></div>
+                      <div class="summary-row">
+                        <span class="summary-label">⏱ ETA</span>
+                        <span class="summary-value">25–35 min</span>
+                      </div>
+                      <div class="summary-row">
+                        <span class="summary-label">💲 Costo Delivery</span>
+                        <span class="summary-value text-primary" id="sum-cost">—</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="wa-msg" id="waMsg"></div>
+
+            <!-- Envío Nacional -->
+            <div class="co-card card-interactive mt-2" id="mode-national" onclick="selectMode('national')">
+              <div class="flex items-center gap-3">
+                <div class="mode-icon">📦</div>
+                <div class="flex-1">
+                  <div class="mode-title">Envío Nacional</div>
+                  <div class="mode-desc">MRW, Zoom, Tealca, Domesa</div>
+                  <div class="mode-badge">24–48h hábiles</div>
+                </div>
+                <div class="radio" id="radio-national"></div>
+              </div>
+              <div class="accordion-body" id="body-national">
+                <div style="padding-top:14px; border-top:1px solid var(--border); margin-top:12px;">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="section-num">1</div>
+                    <span class="section-title">Empresa de transporte</span>
+                  </div>
+                  <div class="grid2" style="margin-bottom:14px;">
+                    <div class="co-card card-interactive" style="padding:10px;" id="tr-MRW" onclick="selectTransport('MRW')">
+                      <div class="radio" id="radio-tr-MRW" style="margin-bottom:4px;"></div>
+                      <div style="font-size:13px;font-weight:700;">MRW</div>
+                      <div style="font-size:10px;color:var(--muted-fg);">24–48 h</div>
+                    </div>
+                    <div class="co-card card-interactive" style="padding:10px;" id="tr-Zoom" onclick="selectTransport('Zoom')">
+                      <div class="radio" id="radio-tr-Zoom" style="margin-bottom:4px;"></div>
+                      <div style="font-size:13px;font-weight:700;">Zoom</div>
+                      <div style="font-size:10px;color:var(--muted-fg);">24 h</div>
+                    </div>
+                    <div class="co-card card-interactive" style="padding:10px;" id="tr-Tealca" onclick="selectTransport('Tealca')">
+                      <div class="radio" id="radio-tr-Tealca" style="margin-bottom:4px;"></div>
+                      <div style="font-size:13px;font-weight:700;">Tealca</div>
+                      <div style="font-size:10px;color:var(--muted-fg);">24–48 h</div>
+                    </div>
+                    <div class="co-card card-interactive" style="padding:10px;" id="tr-Domesa" onclick="selectTransport('Domesa')">
+                      <div class="radio" id="radio-tr-Domesa" style="margin-bottom:4px;"></div>
+                      <div style="font-size:13px;font-weight:700;">Domesa</div>
+                      <div style="font-size:10px;color:var(--muted-fg);">48 h</div>
+                    </div>
+                  </div>
+
+                  <div id="nat-dest-section" class="dimmed">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="section-num">2</div>
+                      <span class="section-title">Destino del envío</span>
+                    </div>
+                    <div class="input-group">
+                      <select class="input" id="nat-state" onchange="onNatStateChange()">
+                        <option value="">Selecciona el Estado</option>
+                        <option>Carabobo</option><option>Distrito Capital</option>
+                        <option>Aragua</option><option>Lara</option><option>Zulia</option>
+                        <option>Mérida</option><option>Anzoátegui</option><option>Bolívar</option>
+                      </select>
+                    </div>
+                    <div id="nat-city-wrap" class="dimmed input-group">
+                      <select class="input" id="nat-city" onchange="onNatCityChange()">
+                        <option value="">Selecciona la Ciudad</option>
+                      </select>
+                    </div>
+                    <div id="nat-branch-wrap" class="dimmed input-group">
+                      <select class="input" id="nat-branch" onchange="onNatBranchChange()">
+                        <option value="">Selecciona la Sucursal</option>
+                        <option>Agencia Principal</option>
+                        <option>Agencia Norte</option>
+                        <option>Agencia Sur</option>
+                      </select>
+                    </div>
+
+                    <div id="nat-summary" class="summary-box hidden fade-up">
+                      <div class="summary-row">
+                        <span class="summary-label">📦 Empresa</span>
+                        <span class="summary-value" id="sum-transport">—</span>
+                      </div>
+                      <div class="summary-row">
+                        <span class="summary-label">📍 Destino</span>
+                        <span class="summary-value" id="sum-dest">—</span>
+                      </div>
+                      <div class="summary-divider"></div>
+                      <div class="summary-row">
+                        <span class="summary-label">🚚 Modalidad</span>
+                        <span class="summary-value text-primary">Cobro a destino</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Retiro en Tienda -->
+            <div class="co-card card-interactive mt-2" id="mode-pickup" onclick="selectMode('pickup')">
+              <div class="flex items-center gap-3">
+                <div class="mode-icon">🏪</div>
+                <div class="flex-1">
+                  <div class="mode-title">Retiro en Tienda</div>
+                  <div class="mode-desc">Recoge en nuestra sede</div>
+                  <div class="mode-badge">Gratis</div>
+                </div>
+                <div class="radio" id="radio-pickup"></div>
+              </div>
+              <div class="accordion-body" id="body-pickup">
+                <div style="padding-top:14px; border-top:1px solid var(--border); margin-top:12px;">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="section-num">1</div>
+                    <span class="section-title">Selecciona la sede</span>
+                  </div>
+                  <div id="stores-list">
+                    <div class="co-card card-interactive" style="margin-bottom:8px;" id="store-Chacao" onclick="selectStore('Chacao')">
+                      <div class="flex items-center gap-3">
+                        <div class="radio" id="radio-store-Chacao"></div>
+                        <div class="flex-1">
+                          <div style="font-size:13px;font-weight:700;">Sede Valencia Norte</div>
+                          <div style="font-size:11px;color:var(--muted-fg);">Av. Bolivar Norte</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="co-card card-interactive" id="store-LasMercedes" onclick="selectStore('LasMercedes')">
+                      <div class="flex items-center gap-3">
+                        <div class="radio" id="radio-store-LasMercedes"></div>
+                        <div class="flex-1">
+                          <div style="font-size:13px;font-weight:700;">Sede El Viñedo</div>
+                          <div style="font-size:11px;color:var(--muted-fg);">Calle los Cafetales</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="pickup-pay-section" class="dimmed" style="margin-top:14px;">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="section-num">2</div>
+                      <span class="section-title">¿Cómo deseas pagar?</span>
+                    </div>
+                    <div class="grid2">
+                      <div class="co-card card-interactive" style="padding:10px;" id="ppay-online" onclick="selectPickupPay('online')">
+                        <div class="radio" id="radio-ppay-online" style="margin-bottom:4px;"></div>
+                        <div style="font-size:12px;font-weight:700;">💳 Pago Previo</div>
+                        <div style="font-size:10px;color:var(--muted-fg);margin-top:2px;">Pago online</div>
+                      </div>
+                      <div class="co-card card-interactive" style="padding:10px;" id="ppay-store" onclick="selectPickupPay('store')">
+                        <div class="radio" id="radio-ppay-store" style="margin-bottom:4px;"></div>
+                        <div style="font-size:12px;font-weight:700;">👛 En Tienda</div>
+                        <div style="font-size:10px;color:var(--muted-fg);margin-top:2px;">Efectivo / Punto</div>
+                      </div>
+                    </div>
+
+                    <div id="pickup-summary" class="summary-box hidden fade-up">
+                      <div class="summary-row">
+                        <span class="summary-label">🏪 Sede</span>
+                        <span class="summary-value" id="sum-store">—</span>
+                      </div>
+                      <div class="summary-row">
+                        <span class="summary-label">🕐 Horario</span>
+                        <span class="summary-value">Lun–Dom 11am–10pm</span>
+                      </div>
+                      <div class="summary-divider"></div>
+                      <div class="summary-row">
+                        <span class="summary-label">💲 Costo envío</span>
+                        <span class="summary-value text-success">Gratis</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <button class="btn light" style="margin-top:20px;width:100%" onclick="resetAll()">Hacer otro pedido</button>
+
+          <!-- ── STEP 2: DATOS ── -->
+          <div class="step-screen fade-up" id="step-datos">
+            <div class="step-title">Tus datos</div>
+            <div class="step-sub">Completa tu información para el pedido</div>
+            <div class="co-card">
+              <div class="input-group">
+                <label class="input-label">Nombre completo *</label>
+                <input class="input" type="text" id="d-name" value="Juan Pérez" placeholder="Ej: Juan Pérez" />
+              </div>
+              <div class="input-group">
+                <label class="input-label">Cédula *</label>
+                <input class="input" type="text" id="d-id" value="V-18.452.123" placeholder="Ej: V-18.452.123" />
+              </div>
+              <div class="input-group">
+                <label class="input-label">WhatsApp *</label>
+                <input class="input" type="tel" id="d-phone" value="0424-4517727" placeholder="Ej: 0424-4517727" />
+              </div>
+              <div class="input-group" style="margin-bottom:0;">
+                <label class="input-label">Correo electrónico *</label>
+                <input class="input" type="email" id="d-email" value="juan@ejemplo.com" placeholder="Ej: juan@email.com" />
+              </div>
+              <div class="text-error hidden" id="datos-error">Por favor completa todos los campos obligatorios.</div>
+            </div>
+            <div style="margin-top:14px; display:flex; justify-content:center;">
+              <div class="trust-badge">🔒 Datos protegidos y seguros</div>
+            </div>
+          </div>
+
+          <!-- ── STEP 3: PAGO ── -->
+          <div class="step-screen fade-up" id="step-pago">
+            <div class="step-title">Método de pago</div>
+            <div class="step-sub">Selecciona cómo deseas pagar</div>
+
+            <div class="seg">
+              <button class="seg-btn active" id="cur-USD" onclick="setCurrency('USD')">USD $</button>
+              <button class="seg-btn" id="cur-VES" onclick="setCurrency('VES')">VES Bs.</button>
+            </div>
+
+            <div id="methods-USD">
+              <div class="co-card card-interactive" id="pm-zelle" onclick="selectMethod('zelle')">
+                <div class="flex items-center gap-3">
+                  <div class="radio" id="radio-zelle"></div>
+                  <div class="flex-1">
+                    <div class="font-bold" style="font-size:14px;">💵 Zelle</div>
+                    <div class="text-xs text-muted mt-1">Transferencia directa en USD</div>
+                  </div>
+                </div>
+              </div>
+              <div class="co-card card-interactive mt-2" id="pm-divisas" onclick="selectMethod('divisas')">
+                <div class="flex items-center gap-3">
+                  <div class="radio" id="radio-divisas"></div>
+                  <div class="flex-1">
+                    <div class="font-bold" style="font-size:14px;">💴 Efectivo al Recibir</div>
+                    <div class="text-xs text-muted mt-1">Dólares en efectivo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="methods-VES" class="hidden">
+              <div class="co-card card-interactive" id="pm-pagomovil" onclick="selectMethod('pagomovil')">
+                <div class="flex items-center gap-3">
+                  <div class="radio" id="radio-pagomovil"></div>
+                  <div class="flex-1">
+                    <div class="font-bold" style="font-size:14px;">📱 Pago Móvil</div>
+                    <div class="text-xs text-muted mt-1">Pago móvil a tasa BCV</div>
+                  </div>
+                </div>
+              </div>
+              <div class="co-card card-interactive mt-2" id="pm-transferencia" onclick="selectMethod('transferencia')">
+                <div class="flex items-center gap-3">
+                  <div class="radio" id="radio-transferencia"></div>
+                  <div class="flex-1">
+                    <div class="font-bold" style="font-size:14px;">🏦 Transferencia Bancaria</div>
+                    <div class="text-xs text-muted mt-1">Banesco / Mercantil</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="pay-instructions" class="hidden fade-up" style="margin-top:16px;">
+              <div class="co-card" style="background:rgba(248,249,251,.8);">
+                <div class="font-bold text-sm" style="margin-bottom:10px;">ℹ️ Datos de Pago</div>
+                <div class="pay-row pay-amount">
+                  <div><div class="pay-label">Monto a pagar</div><div class="pay-value" id="pay-amount-val">$0,00</div></div>
+                  <button class="copy-btn" onclick="copyText(document.getElementById('pay-amount-val').innerText, this)">📋</button>
+                </div>
+                <div id="pay-details" style="margin-top:8px;"></div>
+                <div style="font-size:11px;color:var(--muted-fg);text-align:center;margin-top:10px;">Realiza el pago y adjunta tu comprobante.</div>
+              </div>
+
+              <div class="co-card" style="margin-top:12px;">
+                <div class="font-bold text-sm" style="margin-bottom:10px;">📄 Reportar pago</div>
+                <div class="input-group">
+                  <label class="input-label">Comprobante de pago *</label>
+                  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                    <div id="upload-empty">
+                      <div class="upload-icon">☁️</div>
+                      <div class="upload-text">Toca para subir tu captura</div>
+                      <div class="upload-sub">JPG, PNG, PDF</div>
+                    </div>
+                    <div class="file-preview hidden" id="file-preview">
+                      <div class="file-icon-box">🖼️</div>
+                      <div style="min-width:0;flex:1;">
+                        <div class="file-name" id="file-name">comprobante.jpg</div>
+                        <div class="file-size" id="file-size">180 KB</div>
+                      </div>
+                      <button class="file-remove" onclick="removeFile(event)">✕</button>
+                    </div>
+                    <input type="file" id="file-input" class="hidden" accept="image/*,.pdf" onchange="handleFile(this)" />
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Número de Referencia (Opcional)</label>
+                  <input class="input" type="text" inputmode="numeric" id="pay-ref" placeholder="Ej: 849201" />
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px; display:flex; justify-content:center;">
+              <div class="trust-badge">🔐 Pago 100% seguro y verificado</div>
+            </div>
+          </div>
+
+          <!-- ── STEP 4: CONFIRMACIÓN ── -->
+          <div class="step-screen fade-up" id="step-confirmacion">
+            <div style="text-align:center;padding:30px 0 20px;">
+              <div class="success-circle">✓</div>
+              <div style="font-size:22px;font-weight:800;margin-bottom:6px;">¡Pedido Confirmado!</div>
+              <div style="font-size:13px;color:var(--muted-fg);margin-bottom:16px;">Tu pedido fue recibido y está en preparación</div>
+              <div class="conf-number" id="conf-number">AG-849201</div>
+            </div>
+            <div class="co-card" style="margin-top:12px;">
+              <div class="font-bold text-sm" style="margin-bottom:10px;">📋 Resumen del pedido</div>
+              <div class="summary-row"><span class="summary-label">🍖 Productos</span><span class="summary-value" id="conf-products">—</span></div>
+              <div class="summary-row mt-2"><span class="summary-label">🚚 Entrega</span><span class="summary-value" id="conf-delivery">—</span></div>
+              <div class="summary-row mt-2"><span class="summary-label">💳 Método de pago</span><span class="summary-value" id="conf-method">—</span></div>
+              <hr class="divider">
+              <div class="summary-row"><span class="summary-label" style="font-weight:700;">Total</span><span class="summary-value text-primary" id="conf-total">$0,00</span></div>
+            </div>
+            <div style="margin-top:16px;text-align:center;font-size:12px;color:var(--muted-fg);">
+              Te notificaremos por WhatsApp cuando tu pedido esté listo.<br/>
+              <span style="font-weight:700;color:var(--fg);">¡Gracias por preferir All Grill!</span>
+            </div>
+            <button class="btn-primary mt-6" onclick="resetCheckout()">Hacer otro pedido</button>
+          </div>
+
+        </main>
+
+        <!-- STICKY BOTTOM BAR -->
+        <div class="sticky-bar" id="sticky-bar">
+          <div class="sticky-inner">
+            <div>
+              <div class="sticky-total-label">Total a pagar</div>
+              <div class="sticky-total-amount" id="sticky-total">$0,00</div>
+            </div>
+            <button class="btn-primary sticky-btn" id="sticky-btn" onclick="handleContinue()">Continuar</button>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -618,7 +1036,7 @@ const FX = 36.80;
 const money = n => '$' + n.toFixed(2).replace('.', ',');
 const bs    = n => 'Bs ' + (n * FX).toLocaleString('es-VE', {minimumFractionDigits:2, maximumFractionDigits:2});
 
-/* ── datos de prueba ── */
+/* ── datos de menú ── */
 const DISHES = [
   {id:'par', n:'Parrilla mixta',         d:'Res, pollo y chorizo al carbón, con guasacaca y yuca. La estrella de la casa.', p:12.90, t:'t-parrilla', eb:'A la brasa',      feat:true, tag:'Recomendado', cat:'parrilla'},
   {id:'cos', n:'Costillas BBQ',          d:'Costilla de cerdo a fuego lento, glaseada en salsa de la casa.',                p:11.50, t:'t-costilla', eb:'A la brasa',      tag:'Top',              cat:'parrilla'},
@@ -636,6 +1054,61 @@ const EXTRAS = [
 ];
 
 let cart = [], sheet = null, menuScrollY = 0;
+
+/* ── CHECKOUT STATE ── */
+const STATE = {
+  step: 'entrega',       // entrega | datos | pago | confirmacion
+  mode: null,            // local | national | pickup
+  transport: null,
+  store: null,
+  pickupPay: null,
+  currency: 'USD',
+  method: null,          // zelle | divisas | pagomovil | transferencia
+  hasFile: false,
+  city: null,
+  zone: null,
+  natState: null,
+  natCity: null,
+  natBranch: null,
+}
+
+const ZONES = {
+  valencia: [
+    { id: 'val-norte', name: 'Valencia Norte', cost: 1.50 },
+    { id: 'el-trigal', name: 'El Trigal', cost: 2.00 },
+    { id: 'el-vinedo', name: 'El Viñedo', cost: 1.50 },
+    { id: 'naguanagua', name: 'Naguanagua', cost: 2.50 },
+    { id: 'san-diego', name: 'San Diego', cost: 3.00 },
+  ],
+  caracas: [
+    { id: 'chacao', name: 'Chacao', cost: 2.50 },
+    { id: 'altamira', name: 'Altamira', cost: 2.50 },
+    { id: 'las-mercedes', name: 'Las Mercedes', cost: 3.00 },
+  ],
+}
+
+const NAT_CITIES = {
+  'Carabobo': ['Valencia', 'Puerto Cabello', 'Guacara'],
+  'Distrito Capital': ['Caracas'],
+  'Aragua': ['Maracay', 'Cagua'],
+  'Lara': ['Barquisimeto'],
+  'Zulia': ['Maracaibo'],
+  'Mérida': ['Mérida'],
+  'Anzoátegui': ['Barcelona', 'Puerto La Cruz'],
+  'Bolívar': ['Puerto Ordaz'],
+}
+
+const PAY_DETAILS = {
+  zelle: [{ label:'Email Zelle', val:'pagos@allgrill.com' }, { label:'Titular', val:'All Grill LLC' }],
+  divisas: [],
+  pagomovil: [{ label:'Banco', val:'Banesco (0134)' }, { label:'Teléfono', val:'0424-4517727' }, { label:'Cédula/RIF', val:'J-50123456-9' }],
+  transferencia: [{ label:'Banco', val:'Banesco' }, { label:'Cuenta', val:'0134-0123-45-1234567890' }, { label:'Titular', val:'All Grill CA' }],
+}
+
+const STORE_NAMES = { Chacao: 'Sede Valencia Norte', LasMercedes: 'Sede El Viñedo' }
+const TRANSPORT_ETA = { MRW:'24–48 h', Zoom:'24 h', Tealca:'24–48 h', Domesa:'48 h' }
+
+let shippingCost = 0;
 
 /* ── reloj ── */
 function tick(){
@@ -732,8 +1205,8 @@ function renderBag(){
   document.getElementById('bagTot').textContent = money(cartTotal());
 }
 
-/* ── navegación ── */
-const scrolls = {menu:'menuScroll', cart:'cartScroll', checkout:'coScroll', ok:'okScroll'};
+/* ── navegación general ── */
+const scrolls = {menu:'menuScroll', cart:'cartScroll', checkout:'coScroll'};
 function enter(){
   document.getElementById('s-welcome').classList.add('hide');
 }
@@ -758,7 +1231,7 @@ function go(where){
     document.getElementById(scrolls[where]).scrollTop = 0;
   }
   if(where === 'cart')     renderCart();
-  if(where === 'checkout') renderCheckout();
+  if(where === 'checkout') initCheckout();
 }
 
 /* ── carrito ── */
@@ -799,54 +1272,266 @@ function renderCart(){
 function ciQty(i,n){ cart[i].qty+=n; if(cart[i].qty<=0) cart.splice(i,1); renderBag(); renderCart(); if(cart.length===0) go('menu'); }
 function ciDel(i){ cart.splice(i,1); renderBag(); renderCart(); if(cart.length===0) go('menu'); }
 
-/* ── checkout ── */
-document.getElementById('segEntrega').addEventListener('click', e => {
-  const s = e.target.closest('.s'); if(!s) return;
-  document.querySelectorAll('#segEntrega .s').forEach(x => x.classList.remove('on')); s.classList.add('on');
-  document.getElementById('deliveryFields').style.display = s.dataset.e === 'Mesa' ? 'none' : 'block';
-  renderCheckout();
-});
-document.getElementById('payList').addEventListener('click', e => {
-  const p = e.target.closest('.pay'); if(!p) return;
-  document.querySelectorAll('#payList .pay').forEach(x => x.classList.remove('on')); p.classList.add('on');
-});
-const selEntrega    = () => document.querySelector('#segEntrega .s.on').dataset.e;
-const selPago       = () => document.querySelector('#payList .pay.on').dataset.p;
-const checkoutTotal = () => cartTotal() + (selEntrega() === 'Delivery' ? 1.50 : 0);
-function renderCheckout(){
-  const t = checkoutTotal();
-  document.getElementById('coUsd').innerHTML = money(t) + `<small>${bs(t)}</small>`;
+/* ══════════ CHECKOUT JS LÓGICA ══════════ */
+function totalCalculated() { return cartTotal() + shippingCost; }
+function fmtCheckoutVal(usd) {
+  if (STATE.currency === 'VES') {
+    return 'Bs ' + (usd * FX).toLocaleString('es-VE', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  return '$' + usd.toFixed(2).replace('.', ',');
+}
+function updateTotals() {
+  const t = fmtCheckoutVal(totalCalculated());
+  document.getElementById('header-total').textContent = t;
+  document.getElementById('sticky-total').textContent = t;
+  document.getElementById('pay-amount-val').textContent = t;
 }
 
-/* ── confirmar ── */
-function confirmOrder(){
-  if(cart.length === 0){ toast('Agrega algo al pedido primero 🍖'); return; }
-  const t        = checkoutTotal();
-  const nombre   = document.getElementById('iNombre').value.trim()    || 'Juan';
-  const dir      = document.getElementById('iDireccion').value.trim() || 'Res. Camoruco, PB';
-  const tel      = document.getElementById('iTelefono').value.trim()  || '0424 451 7727';
-  const zona     = document.getElementById('iZona').value.trim()      || 'Valencia Norte';
-  const entrega  = selEntrega();
-  const pago     = selPago();
-  const lines    = cart.map(c =>
-    `• ${c.qty}× ${c.n}${c.extras.length?' ('+c.extras.map(e=>e.n).join(', ')+')':''} — ${money(c.unit*c.qty)}`
-  ).join('\n');
-  const entregaInfo = entrega==='Delivery'
-    ? `Delivery\nDirección: ${dir} (${zona})`
-    : entrega==='Retiro' ? 'Retiro en local' : 'En mesa';
-
-  document.getElementById('waMsg').innerHTML =
-`<span class="bar">ALL GRILL · PEDIDO 🥩</span>
-${lines}
-
-Entrega: ${entregaInfo}
-Pago: ${pago}
-
-<span class="bar">Total: ${money(t)} · ${bs(t)}</span>
-Cliente: ${nombre} · ${tel}`;
-  go('ok');
+const STEPS = ['entrega','datos','pago','confirmacion'];
+function updateProgress() {
+  const idx = STEPS.indexOf(STATE.step);
+  STEPS.forEach((s, i) => {
+    document.getElementById('pb-' + i).className = 'co-progress-bar' + (i <= idx ? ' active' : '');
+    document.getElementById('pl-' + i).className = 'co-progress-label' + (i <= idx ? ' active' : '');
+  });
+  document.getElementById('sticky-bar').style.display = STATE.step === 'confirmacion' ? 'none' : '';
+  document.getElementById('progress-bar').style.display = STATE.step === 'confirmacion' ? 'none' : '';
 }
-function resetAll(){ cart = []; renderBag(); go('menu'); }
+
+function goStep(s) {
+  document.getElementById('step-' + STATE.step).className = 'step-screen';
+  STATE.step = s;
+  const el = document.getElementById('step-' + s);
+  el.className = 'step-screen active fade-up';
+  el.style.animation = 'none';
+  requestAnimationFrame(() => { el.style.animation = ''; });
+  updateProgress();
+  document.getElementById('coScroll').scrollTop = 0;
+}
+
+function initCheckout() {
+  if(!STATE.mode) selectMode('local');
+  updateTotals();
+  goStep('entrega');
+}
+
+function handleContinue() {
+  if (STATE.step === 'entrega') {
+    if (!STATE.mode) { toast('Selecciona la modalidad de entrega'); return; }
+    if (STATE.mode === 'local' && (!STATE.city || !STATE.zone || !document.getElementById('local-address').value.trim())) {
+      toast('Completa los datos de delivery local'); return;
+    }
+    if (STATE.mode === 'national' && (!STATE.transport || !STATE.natBranch)) {
+      toast('Completa los datos de envío nacional'); return;
+    }
+    if (STATE.mode === 'pickup' && (!STATE.store || !STATE.pickupPay)) {
+      toast('Selecciona la sede y método de pago'); return;
+    }
+    goStep('datos');
+  } else if (STATE.step === 'datos') {
+    const n = document.getElementById('d-name').value.trim();
+    const id = document.getElementById('d-id').value.trim();
+    const ph = document.getElementById('d-phone').value.trim();
+    const em = document.getElementById('d-email').value.trim();
+    if (!n || !id || !ph || !em) {
+      document.getElementById('datos-error').classList.remove('hidden'); return;
+    }
+    document.getElementById('datos-error').classList.add('hidden');
+    goStep('pago');
+  } else if (STATE.step === 'pago') {
+    if (!STATE.method && STATE.pickupPay !== 'store') {
+      toast('Selecciona un método de pago'); return;
+    }
+    goToConfirmacion();
+  }
+}
+
+function selectMode(m) {
+  const modes = ['local','national','pickup'];
+  modes.forEach(x => {
+    document.getElementById('mode-' + x).classList.remove('selected');
+    document.getElementById('radio-' + x).classList.remove('selected');
+    document.getElementById('radio-' + x).innerHTML = '';
+    document.getElementById('body-' + x).classList.remove('open');
+  });
+  STATE.mode = m;
+  shippingCost = 0;
+  document.getElementById('mode-' + m).classList.add('selected');
+  document.getElementById('radio-' + m).classList.add('selected');
+  document.getElementById('radio-' + m).innerHTML = '<div class="radio-dot"></div>';
+  document.getElementById('body-' + m).classList.add('open');
+  updateTotals();
+}
+
+function onCityChange() {
+  STATE.city = document.getElementById('city-select').value;
+  STATE.zone = null;
+  const zoneEl = document.getElementById('zone-select');
+  zoneEl.innerHTML = '<option value="">Selecciona la zona</option>';
+  if (STATE.city && ZONES[STATE.city]) {
+    ZONES[STATE.city].forEach(z => {
+      const o = document.createElement('option');
+      o.value = z.id; o.textContent = z.name + ' — $' + z.cost.toFixed(2);
+      zoneEl.appendChild(o);
+    });
+  }
+  document.getElementById('zone-section').classList.remove('dimmed');
+  document.getElementById('address-section').classList.add('dimmed');
+  document.getElementById('local-summary').classList.add('hidden');
+  shippingCost = 0; updateTotals();
+}
+function onZoneChange() {
+  const zid = document.getElementById('zone-select').value;
+  if (!STATE.city || !zid) return;
+  const z = ZONES[STATE.city].find(x => x.id === zid);
+  STATE.zone = zid;
+  document.getElementById('address-section').classList.remove('dimmed');
+  document.getElementById('sum-zone').textContent = z.name;
+  document.getElementById('sum-cost').textContent = '$' + z.cost.toFixed(2);
+  shippingCost = z.cost; updateTotals();
+}
+function checkLocalReady() {
+  const addr = document.getElementById('local-address').value.trim();
+  if (addr && STATE.zone) {
+    document.getElementById('local-summary').classList.remove('hidden');
+  }
+}
+
+function selectTransport(t) {
+  STATE.transport = t;
+  Object.keys(TRANSPORT_ETA).forEach(x => {
+    document.getElementById('tr-' + x).classList.remove('selected');
+    document.getElementById('radio-tr-' + x).classList.remove('selected');
+    document.getElementById('radio-tr-' + x).innerHTML = '';
+  });
+  document.getElementById('tr-' + t).classList.add('selected');
+  document.getElementById('radio-tr-' + t).classList.add('selected');
+  document.getElementById('radio-tr-' + t).innerHTML = '<div class="radio-dot"></div>';
+  document.getElementById('sum-transport').textContent = t;
+  document.getElementById('nat-dest-section').classList.remove('dimmed');
+}
+function onNatStateChange() {
+  STATE.natState = document.getElementById('nat-state').value;
+  STATE.natCity = null; STATE.natBranch = null;
+  const cityEl = document.getElementById('nat-city');
+  cityEl.innerHTML = '<option value="">Selecciona la Ciudad</option>';
+  const cities = NAT_CITIES[STATE.natState] || [];
+  cities.forEach(c => { const o = document.createElement('option'); o.textContent = c; cityEl.appendChild(o); });
+  document.getElementById('nat-city-wrap').classList.remove('dimmed');
+}
+function onNatCityChange() {
+  STATE.natCity = document.getElementById('nat-city').value;
+  document.getElementById('nat-branch-wrap').classList.remove('dimmed');
+}
+function onNatBranchChange() {
+  STATE.natBranch = document.getElementById('nat-branch').value;
+  document.getElementById('sum-dest').textContent = STATE.natState + ', ' + STATE.natCity + ' (' + STATE.natBranch + ')';
+  document.getElementById('nat-summary').classList.remove('hidden');
+}
+
+function selectStore(st) {
+  STATE.store = st;
+  ['Chacao','LasMercedes'].forEach(x => {
+    const el = document.getElementById('store-' + x);
+    const r = document.getElementById('radio-store-' + x);
+    if(el && r) { el.classList.remove('selected'); r.classList.remove('selected'); r.innerHTML = ''; }
+  });
+  document.getElementById('store-' + st).classList.add('selected');
+  document.getElementById('radio-store-' + st).classList.add('selected');
+  document.getElementById('radio-store-' + st).innerHTML = '<div class="radio-dot"></div>';
+  document.getElementById('pickup-pay-section').classList.remove('dimmed');
+}
+function selectPickupPay(p) {
+  STATE.pickupPay = p;
+  ['online','store'].forEach(x => {
+    document.getElementById('ppay-' + x).classList.remove('selected');
+    document.getElementById('radio-ppay-' + x).classList.remove('selected');
+    document.getElementById('radio-ppay-' + x).innerHTML = '';
+  });
+  document.getElementById('ppay-' + p).classList.add('selected');
+  document.getElementById('radio-ppay-' + p).classList.add('selected');
+  document.getElementById('radio-ppay-' + p).innerHTML = '<div class="radio-dot"></div>';
+  document.getElementById('sum-store').textContent = STORE_NAMES[STATE.store] || STATE.store;
+  document.getElementById('pickup-summary').classList.remove('hidden');
+}
+
+function setCurrency(cur) {
+  STATE.currency = cur;
+  document.getElementById('cur-USD').className = 'seg-btn' + (cur==='USD'?' active':'');
+  document.getElementById('cur-VES').className = 'seg-btn' + (cur==='VES'?' active':'');
+  document.getElementById('methods-USD').className = cur==='USD'?'':'hidden';
+  document.getElementById('methods-VES').className = cur==='VES'?'':'hidden';
+  updateTotals();
+}
+
+function selectMethod(m) {
+  STATE.method = m;
+  ['zelle','divisas','pagomovil','transferencia'].forEach(x => {
+    const el = document.getElementById('pm-' + x);
+    const r  = document.getElementById('radio-' + x);
+    if(el && r){ el.classList.remove('selected'); r.classList.remove('selected'); r.innerHTML = ''; }
+  });
+  document.getElementById('pm-' + m).classList.add('selected');
+  document.getElementById('radio-' + m).classList.add('selected');
+  document.getElementById('radio-' + m).innerHTML = '<div class="radio-dot"></div>';
+
+  const details = PAY_DETAILS[m] || [];
+  const detContainer = document.getElementById('pay-details');
+  detContainer.innerHTML = details.map(d => `
+    <div class="pay-row">
+      <div><div class="pay-label">${d.label}</div><div class="pay-value">${d.val}</div></div>
+      <button class="copy-btn" onclick="copyText('${d.val}', this)">📋</button>
+    </div>`).join('');
+
+  document.getElementById('pay-instructions').classList.remove('hidden');
+}
+
+function copyText(txt, btn) {
+  navigator.clipboard.writeText(txt).then(() => {
+    btn.classList.add('copied');
+    toast('¡Copiado al portapapeles!');
+    setTimeout(() => btn.classList.remove('copied'), 2000);
+  });
+}
+
+function handleFile(input) {
+  if (input.files && input.files[0]) {
+    const f = input.files[0];
+    STATE.hasFile = true;
+    document.getElementById('file-name').textContent = f.name;
+    document.getElementById('file-size').textContent = (f.size / 1024).toFixed(0) + ' KB';
+    document.getElementById('upload-empty').classList.add('hidden');
+    document.getElementById('file-preview').classList.remove('hidden');
+    document.getElementById('upload-zone').classList.add('has-file');
+  }
+}
+function removeFile(e) {
+  e.stopPropagation();
+  STATE.hasFile = false;
+  document.getElementById('file-input').value = '';
+  document.getElementById('upload-empty').classList.remove('hidden');
+  document.getElementById('file-preview').classList.add('hidden');
+  document.getElementById('upload-zone').classList.remove('has-file');
+}
+
+function goToConfirmacion() {
+  const code = 'AG-' + Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('conf-number').textContent = code;
+  document.getElementById('conf-products').textContent = cart.map(c => `${c.qty}x ${c.n}`).join(', ');
+  document.getElementById('conf-delivery').textContent = STATE.mode === 'local' ? 'Delivery Local' : STATE.mode === 'national' ? 'Envío Nacional' : 'Retiro en Sede';
+  document.getElementById('conf-method').textContent = STATE.method ? STATE.method.toUpperCase() : 'En Tienda';
+  document.getElementById('conf-total').textContent = fmtCheckoutVal(totalCalculated());
+  goStep('confirmacion');
+}
+
+function resetCheckout() {
+  cart = [];
+  renderBag();
+  STATE.step = 'entrega';
+  STATE.mode = null;
+  STATE.method = null;
+  go('menu');
+}
 
 /* ── init ── */
 document.getElementById('fx').textContent  = 'Bs ' + FX.toFixed(2).replace('.',',');
