@@ -176,19 +176,36 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .w-stat-num { font-size: 19px; font-weight: 800; color: #f4a261; }
 .w-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
 
-.w-dish-scroll { display: flex; gap: 12px; overflow-x: auto; margin-top: 14px; padding-bottom: 6px; }
+.w-dish-scroll { display: flex; gap: 14px; overflow-x: auto; margin-top: 14px; padding-bottom: 8px; }
 .w-dish-scroll::-webkit-scrollbar { display: none; }
 .w-dish-item {
-  flex: 0 0 190px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform .2s;
+  flex: 0 0 240px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 22px; overflow: hidden; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.w-dish-item:active { transform: scale(0.97); }
-.w-dish-img { height: 110px; position: relative; }
+.w-dish-item:hover, .w-dish-item:active { transform: translateY(-3px) scale(0.99); box-shadow: 0 12px 32px rgba(0,0,0,0.45); }
+.w-dish-img { height: 160px; position: relative; }
 .w-dish-img img { width: 100%; height: 100%; object-fit: cover; }
-.w-dish-info { padding: 12px; }
-.w-dish-info h4 { font-size: 14px; font-weight: 700; color: #fff; }
-.w-dish-info p { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.w-dish-price { font-size: 13px; font-weight: 800; color: #f4a261; margin-top: 8px; }
+.w-dish-info { padding: 14px; }
+.w-dish-info h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.w-dish-info p { font-size: 12px; color: rgba(255,255,255,0.68); margin-top: 5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.w-dish-price { font-size: 15px; font-weight: 800; color: #f4a261; margin-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+
+/* Galería de Historias del Restaurante (Vertical Stories format) */
+.story-gallery-wrap { display: flex; gap: 12px; overflow-x: auto; margin-top: 16px; padding-bottom: 6px; }
+.story-gallery-wrap::-webkit-scrollbar { display: none; }
+.story-card {
+  flex: 0 0 155px; height: 230px; border-radius: 20px; position: relative; overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.2);
+}
+.story-card img { width: 100%; height: 100%; object-fit: cover; }
+.story-card-overlay {
+  position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
+  display: flex; flex-direction: column; justify-content: space-between; padding: 12px; color: #fff;
+}
+.story-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.4); border-radius: 99px; overflow: hidden; }
+.story-bar-fill { width: 100%; height: 100%; background: #fff; border-radius: 99px; }
+.story-card-title { font-size: 12px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); line-height: 1.2; }
 
 /* Galería Instagram Showcase */
 .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
@@ -666,11 +683,11 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           <div class="w-cta-group">
             <button class="w-cta-primary" onclick="enter('delivery')">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              Delivery u Ordenar Online
+              Delivery
             </button>
             <button class="w-cta-secondary" onclick="enter('dinein')">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              Menú Restaurante (Mesa)
+              Menú Restaurante
             </button>
           </div>
           <div class="w-scroll-down" onclick="document.getElementById('wLanding').scrollIntoView({behavior:'smooth'})">
@@ -683,7 +700,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
       <!-- ══ LANDING SECTIONS SCROLL ABAJO ══ -->
       <div class="w-landing-content" id="wLanding">
 
-        <!-- Sección 1: Nuestra Historia -->
+        <!-- Sección 1: Nuestra Historia & Galería de Historias -->
         <div class="w-card">
           <span class="w-card-tag">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
@@ -691,6 +708,32 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           </span>
           <h2>El Arte de la Brasa Auténtica</h2>
           <p>En All Grill seleccionamos cortes premium de res, cerdo y ave con el aroma inconfundible del carbón vegetal y leña. Cada plato se sazona al momento y se cocina al punto exacto.</p>
+
+          <!-- Galería de Fotos del Restaurante tipo Historias de Instagram -->
+          <div class="story-gallery-wrap">
+            <div class="story-card">
+              <img src="Images/Home.jpg" alt="Fuego Vivo All Grill">
+              <div class="story-card-overlay">
+                <div class="story-bar"><div class="story-bar-fill"></div></div>
+                <div class="story-card-title">🔥 Fuego Vivo & Leña</div>
+              </div>
+            </div>
+            <div class="story-card">
+              <img src="Images/Parrilla mixta.jpg" alt="Cortes Premium">
+              <div class="story-card-overlay">
+                <div class="story-bar"><div class="story-bar-fill"></div></div>
+                <div class="story-card-title">🥩 Cortes Seleccionados</div>
+              </div>
+            </div>
+            <div class="story-card">
+              <img src="Images/Costillas BBQ.jpg" alt="Glaseado Especial">
+              <div class="story-card-overlay">
+                <div class="story-bar"><div class="story-bar-fill"></div></div>
+                <div class="story-card-title">🍯 Glaseado de la Casa</div>
+              </div>
+            </div>
+          </div>
+
           <div class="w-stats-grid">
             <div class="w-stat-item">
               <div class="w-stat-num">100%</div>
@@ -713,7 +756,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           <p>Nuestros parrilleros dominan el control de temperatura y maduración. Acompañamos cada plato con nuestra icónica guasacaca criolla y yuca al mojo de la casa.</p>
         </div>
 
-        <!-- Sección 3: Platos Emblemáticos -->
+        <!-- Sección 3: Platos Emblemáticos Gran Formato -->
         <div class="w-card">
           <span class="w-card-tag">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -725,16 +768,22 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
               <div class="w-dish-img"><img src="Images/Parrilla mixta.jpg" alt="Parrilla mixta"></div>
               <div class="w-dish-info">
                 <h4>Parrilla mixta</h4>
-                <p>Res, pollo y chorizo al carbón.</p>
-                <div class="w-dish-price">$12,90</div>
+                <p>Res, pollo y chorizo al carbón con guasacaca y yuca. La estrella de la casa.</p>
+                <div class="w-dish-price">
+                  <span>$12,90</span>
+                  <span style="font-size:11px; font-weight:700; background:rgba(244,162,97,0.2); padding:3px 8px; border-radius:6px;">Ver ➔</span>
+                </div>
               </div>
             </div>
             <div class="w-dish-item" onclick="enter('delivery'); setTimeout(()=>openSheet('cos'), 300)">
               <div class="w-dish-img"><img src="Images/Costillas BBQ.jpg" alt="Costillas BBQ"></div>
               <div class="w-dish-info">
                 <h4>Costillas BBQ</h4>
-                <p>Costilla glaseada a fuego lento.</p>
-                <div class="w-dish-price">$11,50</div>
+                <p>Costilla de cerdo a fuego lento, glaseada en salsa secreta de la casa.</p>
+                <div class="w-dish-price">
+                  <span>$11,50</span>
+                  <span style="font-size:11px; font-weight:700; background:rgba(244,162,97,0.2); padding:3px 8px; border-radius:6px;">Ver ➔</span>
+                </div>
               </div>
             </div>
           </div>
@@ -833,9 +882,12 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
         </div>
 
         <!-- MODO CONSULTA BANNER (RESTAURANTE MESA) -->
-        <div id="modeNotice" class="hidden" style="background:#1c0a00; color:#ffb703; padding:8px 16px; font-size:12px; font-weight:700; text-align:center; border-bottom:1px solid rgba(255,183,3,0.3); display:flex; align-items:center; justify-content:center; justify-content:space-between; gap:6px;">
-          <span>📖 Modo Consulta en Restaurante (Mesa)</span>
-          <button style="background:rgba(255,255,255,0.18); border:none; color:#fff; padding:4px 10px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer;" onclick="enter('delivery')">Activar Delivery 🛵</button>
+        <div id="modeNotice" class="hidden" style="background:rgba(28,10,0,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); color:#f4a261; padding:10px 16px; font-size:12px; font-weight:700; border-bottom:1px solid rgba(244,162,97,0.35); display:flex; align-items:center; justify-content:space-between; gap:6px;">
+          <span style="display:flex; align-items:center; gap:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Modo Consulta en Restaurante
+          </span>
+          <button style="background:rgba(244,162,97,0.22); border:1px solid rgba(244,162,97,0.4); color:#fff; padding:4px 10px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer;" onclick="enter('delivery')">Activar Delivery ➔</button>
         </div>
         <!-- ══ BANNER ROTATIVO PROMO ══ -->
         <div class="promo-slider-wrap">
