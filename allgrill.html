@@ -222,6 +222,46 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .story-bar-fill { width: 100%; height: 100%; background: #ffffff; border-radius: 99px; }
 .story-card-title { font-size: 13px; font-weight: 800; color: #ffffff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); line-height: 1.25; letter-spacing: -0.01em; }
 
+/* Video Carousel Formato Grande (Apple Sobrio) */
+.video-carousel-wrap {
+  display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: 8px; -webkit-overflow-scrolling: touch; margin-top: 14px;
+}
+.video-carousel-wrap::-webkit-scrollbar { display: none; }
+
+.video-card-item {
+  flex: 0 0 88%; height: 380px; scroll-snap-align: center; scroll-snap-stop: always;
+  border-radius: 26px; position: relative; overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.16);
+  background: #000;
+}
+.story-video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.video-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.85) 100%);
+  display: flex; flex-direction: column; justify-content: space-between; padding: 18px; color: #fff;
+  pointer-events: none;
+}
+.video-tag-pill {
+  align-self: flex-start; background: rgba(0,0,0,0.55); backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.22);
+  padding: 6px 14px; border-radius: 99px; font-size: 11px; font-weight: 800;
+  color: #ffffff; letter-spacing: -0.01em;
+}
+.video-card-bottom h4 { font-size: 19px; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; }
+.video-card-bottom p { font-size: 12.5px; color: rgba(255,255,255,0.72); margin-top: 4px; line-height: 1.4; }
+
+.video-dots-indicator {
+  display: flex; justify-content: center; gap: 8px; margin-top: 14px;
+}
+.v-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25);
+  transition: all .3s ease;
+}
+.v-dot.active { width: 22px; border-radius: 12px; background: #ffffff; }
+
 /* Galería Instagram Showcase */
 .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
 .insta-item { position: relative; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
@@ -758,6 +798,64 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
               <div class="w-stat-num">+15</div>
               <div class="w-stat-lbl">Años de Experiencia</div>
             </div>
+          </div>
+        </div>
+
+        <!-- Sección: Experiencia Sensorial en Video (Grandes Formatos) -->
+        <div class="w-card" style="padding:22px 16px;">
+          <span class="w-card-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            EXPERIENCIA EN VIVO
+          </span>
+          <h2>La Experiencia All Grill</h2>
+          <p style="margin-bottom:8px;">Desliza para explorar la preparación de nuestras carnes, coctelería y postres.</p>
+
+          <!-- Video Slider deslizable con Snap -->
+          <div class="video-carousel-wrap">
+            
+            <!-- Video 1: Carnes -->
+            <div class="video-card-item">
+              <video class="story-video" src="Videos/Video 1.mp4" muted loop playsinline preload="metadata"></video>
+              <div class="video-card-overlay">
+                <div class="video-tag-pill">🥩 01 · Carnes a la Brasa</div>
+                <div class="video-card-bottom">
+                  <h4>Cortes Seleccionados</h4>
+                  <p>Cocción a fuego lento con el aroma inconfundible del carbón vegetal.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Video 2: Bebidas -->
+            <div class="video-card-item">
+              <video class="story-video" src="Videos/Video 2.mp4" muted loop playsinline preload="metadata"></video>
+              <div class="video-card-overlay">
+                <div class="video-tag-pill">🍹 02 · Coctelería de Autor</div>
+                <div class="video-card-bottom">
+                  <h4>Bebidas & Mezclas</h4>
+                  <p>Tragos refrescantes y cócteles artesanales para el maridaje perfecto.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Video 3: Postres -->
+            <div class="video-card-item">
+              <video class="story-video" src="Videos/Video 3.mp4" muted loop playsinline preload="metadata"></video>
+              <div class="video-card-overlay">
+                <div class="video-tag-pill">🍰 03 · Postres Especiales</div>
+                <div class="video-card-bottom">
+                  <h4>El Cierre Dulce</h4>
+                  <p>Creaciones artesanales para culminar una experiencia gastronómica única.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Indicador de Puntos (Dots) -->
+          <div class="video-dots-indicator" id="videoDots">
+            <span class="v-dot active"></span>
+            <span class="v-dot"></span>
+            <span class="v-dot"></span>
           </div>
         </div>
 
@@ -2083,10 +2181,42 @@ function resetCheckout() {
   go('menu');
 }
 
+/* ── Control Inteligente de Videos (Autoplay deslizable con pausa) ── */
+function initVideoCarouselManager() {
+  const container = document.querySelector('.video-carousel-wrap');
+  if (!container) return;
+
+  const items = container.querySelectorAll('.video-card-item');
+  const videos = container.querySelectorAll('.story-video');
+  const dots = document.querySelectorAll('#videoDots .v-dot');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target.querySelector('video');
+      if (!video) return;
+
+      const index = Array.from(items).indexOf(entry.target);
+
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+        videos.forEach(v => { if (v !== video) v.pause(); });
+        video.play().catch(() => {});
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      } else {
+        video.pause();
+      }
+    });
+  }, {
+    root: container,
+    threshold: 0.5
+  });
+
+  items.forEach(item => observer.observe(item));
+}
+
 /* ── init ── */
 document.getElementById('fx').textContent  = 'Bs ' + FX.toFixed(2).replace('.',',');
 document.getElementById('wfx').textContent = 'Bs ' + FX.toFixed(2).replace('.',',');
-renderMenu(); renderBag(); startSlideLoop(); initBannerTouch(); go('menu');
+renderMenu(); renderBag(); startSlideLoop(); initBannerTouch(); initVideoCarouselManager(); go('menu');
 </script>
 </body>
 </html>
