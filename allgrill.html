@@ -968,8 +968,8 @@ const bs    = n => 'Bs ' + (n * FX).toLocaleString('es-VE', {minimumFractionDigi
 
 /* ── datos de menú ── */
 const DISHES = [
-  {id:'par', n:'Parrilla mixta',         d:'Res, pollo y chorizo al carbón, con guasacaca y yuca. La estrella de la casa.', p:12.90, t:'t-parrilla', eb:'A la brasa',      feat:true, tag:'Recomendado', cat:'parrilla'},
-  {id:'cos', n:'Costillas BBQ',          d:'Costilla de cerdo a fuego lento, glaseada en salsa de la casa.',                p:11.50, t:'t-costilla', eb:'A la brasa',      tag:'Top',              cat:'parrilla'},
+  {id:'par', n:'Parrilla mixta',         d:'Res, pollo y chorizo al carbón, con guasacaca y yuca. La estrella de la casa.', p:12.90, t:'t-parrilla', img:'Images/Parrilla mixta.jpg', eb:'A la brasa', feat:true, tag:'Recomendado', cat:'parrilla'},
+  {id:'cos', n:'Costillas BBQ',          d:'Costilla de cerdo a fuego lento, glaseada en salsa de la casa.',                p:11.50, t:'t-costilla', img:'Images/Costillas BBQ.jpg', eb:'A la brasa', tag:'Top', cat:'parrilla'},
   {id:'pab', n:'Pabellón a la parrilla', d:'Carne mechada al carbón, caraotas, arroz y tajadas.',                          p: 8.50, t:'t-pabellon', eb:'Principal',                               cat:'compartir'},
   {id:'cac', n:'Cachapa con Cochino',    d:'Maíz tierno dulce, queso de mano y cochino frito.',                            p: 6.80, t:'t-cachapa',  eb:'Principal',                               cat:'compartir'},
   {id:'are', n:'Arepa Reina Pepiada',    d:'Aguacate cremoso, pollo mechado y mayonesa de casa.',                          p: 4.20, t:'t-are',      eb:'Para compartir',                          cat:'compartir'},
@@ -1059,7 +1059,9 @@ function renderMenu(cat = 'all'){
   }
   document.getElementById('listHost').innerHTML = list.map(x => `
     <div class="card ${x.feat ? 'feat' : ''}" onclick="openSheet('${x.id}')">
-      <div class="img ${x.t}"><div class="gloss"></div>
+      <div class="img ${x.t}">
+        ${x.img ? `<img src="${encodeURI(x.img)}" alt="${x.n}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;">` : ''}
+        <div class="gloss"></div>
         <div class="pricepill"><span class="u">${money(x.p)}</span><span class="b">${bs(x.p)}</span></div>
         ${x.tag ? `<div class="eb-tag">${x.tag}</div>` : ''}
         <div class="addfab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg></div>
@@ -1073,7 +1075,7 @@ const findDish = id => DISHES.find(d => d.id === id);
 function openSheet(id){
   const d = findDish(id); sheet = {dish:d, qty:1, extras:[]};
   document.getElementById('sheetImg').className = 'sheet-img ' + d.t;
-  document.getElementById('sheetImg').innerHTML = '<div class="gloss"></div>';
+  document.getElementById('sheetImg').innerHTML = (d.img ? `<img src="${encodeURI(d.img)}" alt="${d.n}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;">` : '') + '<div class="gloss"></div>';
   document.getElementById('shName').textContent = d.n;
   document.getElementById('shDesc').textContent = d.d;
   document.getElementById('shQty').textContent  = 1;
@@ -1155,7 +1157,10 @@ function go(where){
 function renderCart(){
   document.getElementById('cartList').innerHTML = cart.map((c,i) => `
     <div class="ci">
-      <div class="thumb ${c.t}"><div class="gloss"></div></div>
+      <div class="thumb ${c.t}">
+        ${c.img ? `<img src="${encodeURI(c.img)}" alt="${c.n}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;">` : ''}
+        <div class="gloss"></div>
+      </div>
       <div class="info">
         <h5>${c.n}</h5>
         ${c.extras.length ? `<div class="ex">+ ${c.extras.map(e=>e.n).join(', ')}</div>` : ''}
