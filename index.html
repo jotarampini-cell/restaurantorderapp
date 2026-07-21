@@ -543,6 +543,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
         </div>
         <div class="segwrap"><div class="seg-scroll" id="segMenu">
           <div class="segchip on" data-cat="all"       onclick="filterCat(this)">Destacados</div>
+          <div class="segchip"    data-cat="promo"     onclick="filterCat(this)">🔥 Promos del Día</div>
           <div class="segchip"    data-cat="parrilla"  onclick="filterCat(this)">Parrillas</div>
           <div class="segchip"    data-cat="compartir" onclick="filterCat(this)">Para compartir</div>
           <div class="segchip"    data-cat="dulce"     onclick="filterCat(this)">Dulces</div>
@@ -948,6 +949,10 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             <button class="seg-btn" id="doneness-bien" onclick="setDoneness('Bien cocida')">Bien cocida</button>
           </div>
         </div>
+        <div style="margin-top:10px;">
+          <div class="opt-h">Nota para la cocina (opcional)</div>
+          <input class="input" type="text" id="shNote" placeholder="Ej: Sin cebolla, extra salsa..." style="border-radius:11px; padding:10px 12px; font-size:13px;" />
+        </div>
         <div class="opt-h">Acompañantes · elige lo que quieras</div>
         <div class="optcard" id="shOpts"></div>
       </div>
@@ -983,6 +988,7 @@ const bs    = n => 'Bs ' + (n * FX).toLocaleString('es-VE', {minimumFractionDigi
 
 /* ── datos de menú ── */
 const DISHES = [
+  {id:'pro1', n:'Combo Parrillero All Grill', d:'Parrilla mixta + Papelón con Limón + Quesillo. ¡Ahorras 20%!', p:14.99, t:'t-parrilla', img:'Images/Parrilla mixta.jpg', eb:'Promo Especial', feat:true, tag:'OFERTA -20%', cat:'promo'},
   {id:'par', n:'Parrilla mixta',         d:'Res, pollo y chorizo al carbón, con guasacaca y yuca. La estrella de la casa.', p:12.90, t:'t-parrilla', img:'Images/Parrilla mixta.jpg', eb:'A la brasa', feat:true, tag:'Recomendado', cat:'parrilla'},
   {id:'cos', n:'Costillas BBQ',          d:'Costilla de cerdo a fuego lento, glaseada en salsa de la casa.',                p:11.50, t:'t-costilla', img:'Images/Costillas BBQ.jpg', eb:'A la brasa', tag:'Top', cat:'parrilla'},
   {id:'pab', n:'Pabellón a la parrilla', d:'Carne mechada al carbón, caraotas, arroz y tajadas.',                          p: 8.50, t:'t-pabellon', eb:'Principal',                               cat:'compartir'},
@@ -1144,6 +1150,9 @@ function openSheet(id){
     dWrap.classList.add('hidden');
   }
 
+  const noteEl = document.getElementById('shNote');
+  if(noteEl) noteEl.value = '';
+
   document.getElementById('sheetImg').className = 'sheet-img ' + d.t;
   document.getElementById('sheetImg').innerHTML = (d.img ? `<img src="${encodeURI(d.img)}" alt="${d.n}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;">` : '') + '<div class="gloss"></div>';
   document.getElementById('shName').textContent = d.n;
@@ -1175,7 +1184,9 @@ function stepQty(n){ sheet.qty = Math.max(1, sheet.qty+n); document.getElementBy
 const sheetUnit = () => sheet.dish.p + sheet.extras.reduce((a,e) => a+e.p, 0);
 function updateSheetAmt(){ document.getElementById('shAmt').textContent = money(sheetUnit() * sheet.qty); }
 function addFromSheet(){
-  const finalName = sheet.doneness ? `${sheet.dish.n} (${sheet.doneness})` : sheet.dish.n;
+  const noteVal = document.getElementById('shNote') ? document.getElementById('shNote').value.trim() : '';
+  let finalName = sheet.doneness ? `${sheet.dish.n} (${sheet.doneness})` : sheet.dish.n;
+  if(noteVal) finalName += ` [Nota: ${noteVal}]`;
   cart.push({...sheet.dish, n: finalName, qty:sheet.qty, extras:[...sheet.extras], unit:sheetUnit()});
   closeSheet(); renderBag();
   toast('¡Agregado al pedido!');
