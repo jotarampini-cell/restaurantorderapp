@@ -127,17 +127,61 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .menu-head .facts{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
 .menu-head .facts span{display:flex;align-items:center;gap:5px;font-size:12px;
   color:var(--ink-2);font-weight:500}
-.menu-head .facts svg{width:14px;height:14px;color:var(--ink-3);stroke-width:1.7}
+/* ══════════ BANNER ROTATIVO PROMO ══════════ */
+.promo-slider-wrap { padding: 14px 16px 4px; position: relative; }
+.promo-carousel {
+  width: 100%; height: 145px; border-radius: 22px; position: relative; overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.promo-slide {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  transform: scale(0.96); padding: 16px 18px; display: flex; flex-direction: column;
+  justify-content: space-between; color: #fff;
+}
+.promo-slide.active { opacity: 1; pointer-events: auto; transform: scale(1); }
 
-/* ══════════ CHIPS ══════════ */
-.segwrap{position:sticky;top:57px;z-index:40;padding:10px 14px;
-  background:rgba(245,245,247,.78);backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%)}
-.seg-scroll{display:flex;gap:8px;overflow-x:auto}
-.seg-scroll::-webkit-scrollbar{display:none}
-.segchip{flex:0 0 auto;font-size:13px;font-weight:600;color:var(--ink-2);
-  padding:7px 15px;border-radius:999px;background:var(--surface);
-  border:1px solid var(--hair);cursor:pointer;transition:.22s;white-space:nowrap}
+.ps-bg-1 { background: linear-gradient(135deg, #1c0a00 0%, #4a1503 45%, #9e3606 100%); }
+.ps-bg-2 { background: linear-gradient(135deg, #091e11 0%, #154528 50%, #257d4a 100%); }
+.ps-bg-3 { background: linear-gradient(135deg, #181528 0%, #352b57 50%, #634ba1 100%); }
+
+.promo-tag {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25); padding: 4px 10px; border-radius: 99px; width: fit-content;
+}
+.promo-title { font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-top: 4px; }
+.promo-sub { font-size: 12px; opacity: 0.88; margin-top: 2px; }
+.promo-code-pill { font-size: 11px; font-weight: 800; background: #fff; color: #111827; padding: 4px 10px; border-radius: 8px; display: inline-block; }
+
+.promo-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+.pdot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.18); cursor: pointer; transition: all .3s ease; }
+.pdot.active { width: 22px; border-radius: 99px; background: var(--ink); }
+
+/* ══════════ CATEGORÍAS SOFISTICADAS (ESTILO RAPPI / PEDIDOSYA) ══════════ */
+.cat-grid-wrap { padding: 10px 0 4px; }
+.cat-grid-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 4px 16px 8px; scroll-behavior: smooth; }
+.cat-grid-scroll::-webkit-scrollbar { display: none; }
+
+.cat-card {
+  flex: 0 0 92px; height: 105px; background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 20px; display: flex; flex-direction: column; align-items: center;
+  justify-content: space-between; padding: 12px 6px 10px; cursor: pointer;
+  transition: all .25s cubic-bezier(.2,.8,.2,1); box-shadow: var(--shadow-s); position: relative; overflow: hidden;
+}
+.cat-card:hover, .cat-card:active { transform: translateY(-2px); box-shadow: var(--shadow-m); }
+.cat-card.on { border-color: var(--ink); background: #ffffff; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.cat-card.on::after {
+  content: ""; position: absolute; bottom: 0; left: 30%; right: 30%; height: 3px;
+  background: var(--ink); border-radius: 99px 99px 0 0;
+}
+.cat-icon-box {
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); transition: transform .25s ease;
+}
+.cat-card:hover .cat-icon-box, .cat-card.on .cat-icon-box { transform: scale(1.1); }
+.cat-card-name { font-size: 12px; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; text-align: center; line-height: 1.2; }
 .segchip.on{color:#fff;background:var(--ink);border-color:var(--ink)}
 
 /* ══════════ CARDS ══════════ */
@@ -523,7 +567,87 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
         <div id="searchWrap" class="hidden" style="padding:10px 16px; background:rgba(245,245,247,.9); border-bottom:1px solid var(--hair);">
           <input type="text" id="searchInput" class="input" placeholder="🔍 Buscar plato, carne o bebida..." oninput="doSearch(this.value)" style="border-radius:99px; padding:10px 16px; font-size:13px;">
         </div>
-        <div class="menu-head">
+        <!-- ══ BANNER ROTATIVO PROMO ══ -->
+        <div class="promo-slider-wrap">
+          <div class="promo-carousel">
+            <!-- Slide 1 -->
+            <div class="promo-slide ps-bg-1 active">
+              <div class="promo-tag">🔥 PROMO DE BIENVENIDA</div>
+              <div>
+                <div class="promo-title">40% OFF en tu primer pedido</div>
+                <div class="promo-sub">Disfruta el mejor sabor al carbón de All Grill</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="promo-code-pill">Código: ALLGRILL40</span>
+                <button style="background:rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.4); color:#fff; padding:6px 14px; border-radius:99px; font-size:11px; font-weight:700; cursor:pointer;" onclick="filterCatByTag('promo')">Pedir ➔</button>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="promo-slide ps-bg-2">
+              <div class="promo-tag">🥩 COMBO DE LA SEMANA</div>
+              <div>
+                <div class="promo-title">Combo Parrillero $14,99</div>
+                <div class="promo-sub">Parrilla mixta + Papelón + Quesillo</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="promo-code-pill">Ahorra el 20%</span>
+                <button style="background:rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.4); color:#fff; padding:6px 14px; border-radius:99px; font-size:11px; font-weight:700; cursor:pointer;" onclick="openSheet('pro1')">Ver combo ➔</button>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="promo-slide ps-bg-3">
+              <div class="promo-tag">🚀 DELIVERY GRATIS</div>
+              <div>
+                <div class="promo-title">Envío $0 en tu zona</div>
+                <div class="promo-sub">En compras superiores a $20</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="promo-code-pill">Automático al checkout</span>
+                <button style="background:rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.4); color:#fff; padding:6px 14px; border-radius:99px; font-size:11px; font-weight:700; cursor:pointer;" onclick="filterCatByTag('all')">Ver carta ➔</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PUNTOS DE NAVEGACIÓN ROTATIVOS -->
+          <div class="promo-dots">
+            <span class="pdot active" onclick="setSlide(0)"></span>
+            <span class="pdot" onclick="setSlide(1)"></span>
+            <span class="pdot" onclick="setSlide(2)"></span>
+          </div>
+        </div>
+
+        <!-- ══ CATEGORÍAS SOFISTICADAS TARJETAS ESTILO RAPPI / PEDIDOSYA ══ -->
+        <div class="cat-grid-wrap">
+          <div class="cat-grid-scroll" id="segMenu">
+            <div class="cat-card on" data-cat="all" onclick="filterCat(this)">
+              <div class="cat-icon-box">🌟</div>
+              <div class="cat-card-name">Destacados</div>
+            </div>
+            <div class="cat-card" data-cat="promo" onclick="filterCat(this)">
+              <div class="cat-icon-box">🔥</div>
+              <div class="cat-card-name">Promos</div>
+            </div>
+            <div class="cat-card" data-cat="parrilla" onclick="filterCat(this)">
+              <div class="cat-icon-box">🥩</div>
+              <div class="cat-card-name">Parrillas</div>
+            </div>
+            <div class="cat-card" data-cat="compartir" onclick="filterCat(this)">
+              <div class="cat-icon-box">👥</div>
+              <div class="cat-card-name">Compartir</div>
+            </div>
+            <div class="cat-card" data-cat="dulce" onclick="filterCat(this)">
+              <div class="cat-icon-box">🍰</div>
+              <div class="cat-card-name">Dulces</div>
+            </div>
+            <div class="cat-card" data-cat="bebida" onclick="filterCat(this)">
+              <div class="cat-icon-box">🥤</div>
+              <div class="cat-card-name">Bebidas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ CABECERA DE LISTA DE PLATOS ══ -->
+        <div class="menu-head" style="padding-top:12px;">
           <div class="big">Hoy en la parrilla</div>
           <div class="sub">Al carbón, al punto que pidas.</div>
           <div class="facts">
@@ -541,14 +665,6 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             </span>
           </div>
         </div>
-        <div class="segwrap"><div class="seg-scroll" id="segMenu">
-          <div class="segchip on" data-cat="all"       onclick="filterCat(this)">Destacados</div>
-          <div class="segchip"    data-cat="promo"     onclick="filterCat(this)">🔥 Promos del Día</div>
-          <div class="segchip"    data-cat="parrilla"  onclick="filterCat(this)">Parrillas</div>
-          <div class="segchip"    data-cat="compartir" onclick="filterCat(this)">Para compartir</div>
-          <div class="segchip"    data-cat="dulce"     onclick="filterCat(this)">Dulces</div>
-          <div class="segchip"    data-cat="bebida"    onclick="filterCat(this)">Bebidas</div>
-        </div></div>
         <div class="list" id="listHost"></div>
         <div style="height:110px"></div>
       </div>
@@ -1062,12 +1178,36 @@ function toast(msg){
   t._tid = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+/* ── slider rotativo promo ── */
+let currentSlide = 0;
+let slideInterval = null;
+
+function setSlide(n) {
+  currentSlide = n;
+  const slides = document.querySelectorAll('.promo-slide');
+  const dots = document.querySelectorAll('.pdot');
+  slides.forEach((s, i) => s.classList.toggle('active', i === n));
+  dots.forEach((d, i) => d.classList.toggle('active', i === n));
+}
+
+function startSlideLoop() {
+  if(slideInterval) clearInterval(slideInterval);
+  slideInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % 3;
+    setSlide(currentSlide);
+  }, 4500);
+}
+
 /* ── filtro categorías ── */
 function filterCat(el){
-  document.querySelectorAll('#segMenu .segchip').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('#segMenu .cat-card').forEach(x => x.classList.remove('on'));
   el.classList.add('on');
   renderMenu(el.dataset.cat);
-  document.getElementById('menuScroll').scrollTo({top:0, behavior:'smooth'});
+}
+
+function filterCatByTag(cat){
+  const el = document.querySelector(`#segMenu .cat-card[data-cat="${cat}"]`);
+  if(el) filterCat(el);
 }
 
 /* ── menú ── */
@@ -1503,7 +1643,7 @@ function resetCheckout() {
 /* ── init ── */
 document.getElementById('fx').textContent  = 'Bs ' + FX.toFixed(2).replace('.',',');
 document.getElementById('wfx').textContent = 'Bs ' + FX.toFixed(2).replace('.',',');
-renderMenu(); renderBag(); go('menu');
+renderMenu(); renderBag(); startSlideLoop(); go('menu');
 </script>
 </body>
 </html>
