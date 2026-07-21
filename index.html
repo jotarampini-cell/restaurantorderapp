@@ -1107,7 +1107,7 @@ function updateSheetAmt(){ document.getElementById('shAmt').textContent = money(
 function addFromSheet(){
   cart.push({...sheet.dish, qty:sheet.qty, extras:[...sheet.extras], unit:sheetUnit()});
   closeSheet(); renderBag();
-  toast('¡Agregado al pedido! 🍖');
+  toast('¡Agregado al pedido!');
 }
 
 /* ── bag ── */
@@ -1128,7 +1128,7 @@ function enter(){
 }
 function go(where){
   if(where === 'checkout' && cart.length === 0){
-    toast('Agrega algo al pedido primero 🍖');
+    toast('Agrega algo al pedido primero');
     const bag = document.getElementById('bag');
     bag.classList.remove('bounce'); void bag.offsetWidth; bag.classList.add('bounce');
     setTimeout(() => bag.classList.remove('bounce'), 500);
