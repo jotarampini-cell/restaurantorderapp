@@ -148,64 +148,79 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   60% { transform: translateY(3px); }
 }
 
-/* Landing Page Content abajo */
+/* Landing Page Content abajo (Sobrio Monocromático App Store) */
 .w-landing-content {
-  position: relative; z-index: 4; padding: 24px 20px 60px;
-  background: linear-gradient(to bottom, #0a0503 0%, #0e0704 100%);
-  display: flex; flex-direction: column; gap: 26px;
+  position: relative; z-index: 4; padding: 28px 20px 60px;
+  background: #0a0503;
+  display: flex; flex-direction: column; gap: 28px;
 }
 
 .w-card {
-  background: rgba(255,255,255,0.05); backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 22px 18px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 26px; padding: 24px 20px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
 }
 .w-card-tag {
-  font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-  color: #f4a261; margin-bottom: 6px; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px;
 }
-.w-card h2 { font-size: 21px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.2; }
-.w-card p { font-size: 13.5px; color: rgba(255,255,255,0.72); line-height: 1.6; margin-top: 8px; }
+.w-card-tag svg { stroke: rgba(255,255,255,0.6); }
+.w-card h2 { font-size: 23px; font-weight: 800; color: #ffffff; letter-spacing: -.04em; line-height: 1.18; }
+.w-card p { font-size: 14px; color: rgba(255,255,255,0.68); line-height: 1.6; margin-top: 10px; }
 
-.w-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+/* Trilogía Sobria 01-02-03 */
+.ritual-num-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.ritual-num-item {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start;
+}
+.ritual-num-badge {
+  font-size: 16px; font-weight: 800; color: #ffffff; background: rgba(255,255,255,0.1);
+  width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0;
+}
+.ritual-num-body h4 { font-size: 14.5px; font-weight: 700; color: #ffffff; letter-spacing: -0.01em; }
+.ritual-num-body p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; line-height: 1.45; }
+
+.w-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
 .w-stat-item {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px; padding: 12px; text-align: center;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px; padding: 14px; text-align: center;
 }
-.w-stat-num { font-size: 19px; font-weight: 800; color: #f4a261; }
-.w-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.w-stat-num { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; }
+.w-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
 
-.w-dish-scroll { display: flex; gap: 14px; overflow-x: auto; margin-top: 14px; padding-bottom: 8px; }
+/* Platos Estrella Sobrios */
+.w-dish-scroll { display: flex; gap: 14px; overflow-x: auto; margin-top: 16px; padding-bottom: 8px; }
 .w-dish-scroll::-webkit-scrollbar { display: none; }
 .w-dish-item {
-  flex: 0 0 240px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 22px; overflow: hidden; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  flex: 0 0 240px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px; overflow: hidden; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
-.w-dish-item:hover, .w-dish-item:active { transform: translateY(-3px) scale(0.99); box-shadow: 0 12px 32px rgba(0,0,0,0.45); }
+.w-dish-item:hover, .w-dish-item:active { transform: translateY(-3px); }
 .w-dish-img { height: 160px; position: relative; }
 .w-dish-img img { width: 100%; height: 100%; object-fit: cover; }
 .w-dish-info { padding: 14px; }
 .w-dish-info h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-.w-dish-info p { font-size: 12px; color: rgba(255,255,255,0.68); margin-top: 5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.w-dish-price { font-size: 15px; font-weight: 800; color: #f4a261; margin-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+.w-dish-info p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.w-dish-price { font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 12px; display: flex; align-items: center; justify-content: space-between; }
 
-/* Galería de Historias del Restaurante (Vertical Stories format) */
-.story-gallery-wrap { display: flex; gap: 12px; overflow-x: auto; margin-top: 16px; padding-bottom: 6px; }
+/* App Store Today Style Vertical Stories */
+.story-gallery-wrap { display: flex; gap: 12px; overflow-x: auto; margin-top: 18px; padding-bottom: 6px; }
 .story-gallery-wrap::-webkit-scrollbar { display: none; }
 .story-card {
-  flex: 0 0 155px; height: 230px; border-radius: 20px; position: relative; overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.2);
+  flex: 0 0 160px; height: 240px; border-radius: 22px; position: relative; overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15);
 }
 .story-card img { width: 100%; height: 100%; object-fit: cover; }
 .story-card-overlay {
-  position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
-  display: flex; flex-direction: column; justify-content: space-between; padding: 12px; color: #fff;
+  position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.9) 100%);
+  display: flex; flex-direction: column; justify-content: space-between; padding: 14px; color: #fff;
 }
-.story-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.4); border-radius: 99px; overflow: hidden; }
-.story-bar-fill { width: 100%; height: 100%; background: #fff; border-radius: 99px; }
-.story-card-title { font-size: 12px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); line-height: 1.2; }
+.story-bar { width: 100%; height: 2.5px; background: rgba(255,255,255,0.3); border-radius: 99px; overflow: hidden; }
+.story-bar-fill { width: 100%; height: 100%; background: #ffffff; border-radius: 99px; }
+.story-card-title { font-size: 13px; font-weight: 800; color: #ffffff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); line-height: 1.25; letter-spacing: -0.01em; }
 
 /* Galería Instagram Showcase */
 .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
@@ -697,39 +712,39 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
         </div>
       </div>
 
-      <!-- ══ LANDING SECTIONS SCROLL ABAJO ══ -->
+      <!-- ══ LANDING SECTIONS SCROLL ABAJO (SOBRIO APPS STORE EDITORIAL) ══ -->
       <div class="w-landing-content" id="wLanding">
 
-        <!-- Sección 1: Nuestra Historia & Galería de Historias -->
+        <!-- Sección 1: Editorial Origen & Galería de Historias -->
         <div class="w-card">
           <span class="w-card-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-            NUESTRA PASIÓN
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            NUESTRA HISTORIA
           </span>
-          <h2>El Arte de la Brasa Auténtica</h2>
-          <p>En All Grill seleccionamos cortes premium de res, cerdo y ave con el aroma inconfundible del carbón vegetal y leña. Cada plato se sazona al momento y se cocina al punto exacto.</p>
+          <h2>El Arte del Carbón & La Leña</h2>
+          <p>Selección rigurosa de cortes vacunos, maduración artesanal y el aroma inconfundible del carbón vegetal y madera noble.</p>
 
-          <!-- Galería de Fotos del Restaurante tipo Historias de Instagram -->
+          <!-- Galería de Fotos del Restaurante tipo Historias App Store -->
           <div class="story-gallery-wrap">
             <div class="story-card">
               <img src="Images/Home.jpg" alt="Fuego Vivo All Grill">
               <div class="story-card-overlay">
                 <div class="story-bar"><div class="story-bar-fill"></div></div>
-                <div class="story-card-title">🔥 Fuego Vivo & Leña</div>
+                <div class="story-card-title">Fuego Vivo & Leña</div>
               </div>
             </div>
             <div class="story-card">
               <img src="Images/Parrilla mixta.jpg" alt="Cortes Premium">
               <div class="story-card-overlay">
                 <div class="story-bar"><div class="story-bar-fill"></div></div>
-                <div class="story-card-title">🥩 Cortes Seleccionados</div>
+                <div class="story-card-title">Cortes Seleccionados</div>
               </div>
             </div>
             <div class="story-card">
               <img src="Images/Costillas BBQ.jpg" alt="Glaseado Especial">
               <div class="story-card-overlay">
                 <div class="story-bar"><div class="story-bar-fill"></div></div>
-                <div class="story-card-title">🍯 Glaseado de la Casa</div>
+                <div class="story-card-title">Glaseado de la Casa</div>
               </div>
             </div>
           </div>
@@ -741,25 +756,47 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             </div>
             <div class="w-stat-item">
               <div class="w-stat-num">+15</div>
-              <div class="w-stat-lbl">Años de Maestría</div>
+              <div class="w-stat-lbl">Años de Experiencia</div>
             </div>
           </div>
         </div>
 
-        <!-- Sección 2: Maestros Parrilleros -->
+        <!-- Sección 2: La Trilogía del Asador (01 - 02 - 03) -->
         <div class="w-card">
           <span class="w-card-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 10.59 0A4 4 0 0 1 18 13.87V21H6v-7.13z"/><line x1="6" y1="17" x2="18" y2="17"/></svg>
-            EXPERIENCIA GASTRONÓMICA
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            FILOSOFÍA DE COCINA
           </span>
-          <h2>Maestros del Punto Perfecto</h2>
-          <p>Nuestros parrilleros dominan el control de temperatura y maduración. Acompañamos cada plato con nuestra icónica guasacaca criolla y yuca al mojo de la casa.</p>
+          <h2>El Ritual del Parrillero</h2>
+          <div class="ritual-num-list">
+            <div class="ritual-num-item">
+              <div class="ritual-num-badge">01</div>
+              <div class="ritual-num-body">
+                <h4>Selección de Origen</h4>
+                <p>Cortes vacunos madurados en seco con marmoleo superior para garantizar máxima jugosidad.</p>
+              </div>
+            </div>
+            <div class="ritual-num-item">
+              <div class="ritual-num-badge">02</div>
+              <div class="ritual-num-body">
+                <h4>Alquimia de Brasas</h4>
+                <p>Mezcla denso de carbón vegetal y leña aromática que aporta el sello distintivo de la casa.</p>
+              </div>
+            </div>
+            <div class="ritual-num-item">
+              <div class="ritual-num-badge">03</div>
+              <div class="ritual-num-body">
+                <h4>Control de Temperatura</h4>
+                <p>Sellado a fuego directo para conservar los jugos y lograr el término deseado por el cliente.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Sección 3: Platos Emblemáticos Gran Formato -->
+        <!-- Sección 3: Especialidades Gran Formato -->
         <div class="w-card">
           <span class="w-card-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             ESPECIALIDADES
           </span>
           <h2>Platos Estrella de la Casa</h2>
@@ -768,10 +805,10 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
               <div class="w-dish-img"><img src="Images/Parrilla mixta.jpg" alt="Parrilla mixta"></div>
               <div class="w-dish-info">
                 <h4>Parrilla mixta</h4>
-                <p>Res, pollo y chorizo al carbón con guasacaca y yuca. La estrella de la casa.</p>
+                <p>Res, pollo y chorizo al carbón con guasacaca y yuca al mojo.</p>
                 <div class="w-dish-price">
                   <span>$12,90</span>
-                  <span style="font-size:11px; font-weight:700; background:rgba(244,162,97,0.2); padding:3px 8px; border-radius:6px;">Ver ➔</span>
+                  <span style="font-size:11px; font-weight:700; background:rgba(255,255,255,0.12); padding:4px 10px; border-radius:8px;">Ver ➔</span>
                 </div>
               </div>
             </div>
@@ -779,29 +816,29 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
               <div class="w-dish-img"><img src="Images/Costillas BBQ.jpg" alt="Costillas BBQ"></div>
               <div class="w-dish-info">
                 <h4>Costillas BBQ</h4>
-                <p>Costilla de cerdo a fuego lento, glaseada en salsa secreta de la casa.</p>
+                <p>Costilla de cerdo a fuego lento, glaseada en salsa de la casa.</p>
                 <div class="w-dish-price">
                   <span>$11,50</span>
-                  <span style="font-size:11px; font-weight:700; background:rgba(244,162,97,0.2); padding:3px 8px; border-radius:6px;">Ver ➔</span>
+                  <span style="font-size:11px; font-weight:700; background:rgba(255,255,255,0.12); padding:4px 10px; border-radius:8px;">Ver ➔</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Sección 4: Galería Instagram Premium -->
+        <!-- Sección 4: Galería Instagram Feed -->
         <div class="w-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div>
               <span class="w-card-tag">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                 INSTAGRAM FEED
               </span>
               <h2 style="font-size:20px;">@allgrill.ve</h2>
             </div>
-            <button class="w-store-btn" style="flex:none; padding:6px 12px; background:rgba(255,255,255,0.15);" onclick="window.open('https://instagram.com','_blank')">Seguir ➔</button>
+            <button class="w-store-btn" style="flex:none; padding:6px 14px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.18);" onclick="window.open('https://instagram.com','_blank')">Seguir ➔</button>
           </div>
-          <p style="font-size:13px; margin-bottom:12px;">Sabor, fuego y pasión en cada detalle. Síguenos en nuestras redes.</p>
+          <p style="font-size:13px; margin-bottom:12px;">Sabor, fuego y precisión en cada plato.</p>
 
           <div class="insta-grid">
             <div class="insta-item">
@@ -822,7 +859,7 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
         <!-- Sección 5: Ubicación y Contacto -->
         <div class="w-card">
           <span class="w-card-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             UBICACIÓN & HORARIOS
           </span>
           <h2>Visítanos en nuestras sedes</h2>
@@ -832,8 +869,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             <div class="w-store-name">Sede Valencia Norte</div>
             <div class="w-store-addr">Av. Bolívar Norte, Sector El Viñedo</div>
             <div class="w-store-actions">
-              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
-              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
+              <div class="w-store-btn" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
+              <div class="w-store-btn" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
             </div>
           </div>
 
@@ -841,8 +878,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             <div class="w-store-name">Sede El Trigal / Naguanagua</div>
             <div class="w-store-addr">C.C. Paseo Las Industrias, Valencia</div>
             <div class="w-store-actions">
-              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
-              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
+              <div class="w-store-btn" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
+              <div class="w-store-btn" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
             </div>
           </div>
         </div>
