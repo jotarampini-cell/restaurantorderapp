@@ -616,31 +616,76 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           </div>
         </div>
 
-        <!-- ══ CATEGORÍAS SOFISTICADAS TARJETAS ESTILO RAPPI / PEDIDOSYA ══ -->
+        <!-- ══ CATEGORÍAS SOFISTICADAS TARJETAS ESTILO RAPPI / PEDIDOSYA CON ILUSTRACIONES SVG ESTILIZADAS ══ -->
         <div class="cat-grid-wrap">
           <div class="cat-grid-scroll" id="segMenu">
+            <!-- Destacados -->
             <div class="cat-card on" data-cat="all" onclick="filterCat(this)">
-              <div class="cat-icon-box">🌟</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gStar" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#FF9900"/><stop offset="100%" stop-color="#FF5500"/></linearGradient></defs>
+                  <path d="M18 2l4.9 10 11.1 1.6-8 7.8 1.9 11-9.9-5.2-9.9 5.2 1.9-11-8-7.8 11.1-1.6L18 2z" fill="url(#gStar)" filter="drop-shadow(0 3px 6px rgba(255,153,0,0.45))"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Destacados</div>
             </div>
+            <!-- Promos -->
             <div class="cat-card" data-cat="promo" onclick="filterCat(this)">
-              <div class="cat-icon-box">🔥</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gFlame" x1="0" y1="36" x2="36" y2="0"><stop offset="0%" stop-color="#E63946"/><stop offset="50%" stop-color="#F4A261"/><stop offset="100%" stop-color="#E76F51"/></linearGradient></defs>
+                  <path d="M18 2C18 2 11 11 11 19c0 4.4 3.1 8 7 8s7-3.6 7-8c0-3-1.8-6.2-4.5-8.5C18.2 10.2 18 2 18 2z" fill="url(#gFlame)" filter="drop-shadow(0 3px 6px rgba(230,57,70,0.45))"/>
+                  <path d="M18 13c0 0-3.5 4.5-3.5 8 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-1.5-1-3.2-2.3-4.5C18.1 16.2 18 13 18 13z" fill="#FFF3B0"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Promos</div>
             </div>
+            <!-- Parrillas -->
             <div class="cat-card" data-cat="parrilla" onclick="filterCat(this)">
-              <div class="cat-icon-box">🥩</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gSteak" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#8B0000"/><stop offset="50%" stop-color="#D32F2F"/><stop offset="100%" stop-color="#FF7043"/></linearGradient></defs>
+                  <path d="M10 6c-3.3 0-6 2.7-6 6 0 6.6 6 12 12 18 4.4 0 12-4 12-12 0-6.6-6-12-18-12z" fill="url(#gSteak)" filter="drop-shadow(0 3px 6px rgba(139,0,0,0.45))"/>
+                  <path d="M11 12c1 0 3 1.5 3 3.5s-2 3.5-3 3.5" stroke="#FFF" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+                  <path d="M18 14c1.5 0 4 2 4 4.5S20 23 18 23" stroke="#FFF" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Parrillas</div>
             </div>
+            <!-- Compartir -->
             <div class="cat-card" data-cat="compartir" onclick="filterCat(this)">
-              <div class="cat-icon-box">👥</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gPlatter" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#E67E22"/><stop offset="100%" stop-color="#D35400"/></linearGradient></defs>
+                  <path d="M18 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="url(#gPlatter)"/>
+                  <path d="M5 24c0-7.2 5.8-13 13-13s13 5.8 13 13H5z" fill="url(#gPlatter)" filter="drop-shadow(0 3px 6px rgba(211,84,0,0.4))"/>
+                  <rect x="3" y="25" width="30" height="4" rx="2" fill="#8B5A2B"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Compartir</div>
             </div>
+            <!-- Dulces -->
             <div class="cat-card" data-cat="dulce" onclick="filterCat(this)">
-              <div class="cat-icon-box">🍰</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gCake" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#FF85A1"/><stop offset="50%" stop-color="#FBB1BD"/><stop offset="100%" stop-color="#F72585"/></linearGradient></defs>
+                  <path d="M6 26L30 18v8H6z" fill="url(#gCake)" filter="drop-shadow(0 3px 6px rgba(247,37,133,0.35))"/>
+                  <path d="M6 18c0-3.3 12-10 24-10v8C18 16 6 18 6 18z" fill="#FFF3B0"/>
+                  <circle cx="28" cy="7" r="3" fill="#D90429"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Dulces</div>
             </div>
+            <!-- Bebidas -->
             <div class="cat-card" data-cat="bebida" onclick="filterCat(this)">
-              <div class="cat-icon-box">🥤</div>
+              <div class="cat-icon-box">
+                <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
+                  <defs><linearGradient id="gDrink" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#48CAE4"/><stop offset="50%" stop-color="#0077B6"/><stop offset="100%" stop-color="#023E8A"/></linearGradient></defs>
+                  <path d="M8 10h20l-2.5 20h-15L8 10z" fill="url(#gDrink)" filter="drop-shadow(0 3px 6px rgba(0,119,182,0.4))"/>
+                  <path d="M6 8h24v2H6z" fill="#90E0EF"/>
+                  <path d="M22 2L17 12" stroke="#FF4D6D" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
               <div class="cat-card-name">Bebidas</div>
             </div>
           </div>
@@ -1181,6 +1226,8 @@ function toast(msg){
 /* ── slider rotativo promo ── */
 let currentSlide = 0;
 let slideInterval = null;
+let touchStartX = 0;
+let touchEndX = 0;
 
 function setSlide(n) {
   currentSlide = n;
@@ -1196,6 +1243,45 @@ function startSlideLoop() {
     currentSlide = (currentSlide + 1) % 3;
     setSlide(currentSlide);
   }, 4500);
+}
+
+function initBannerTouch() {
+  const carousel = document.querySelector('.promo-carousel');
+  if (!carousel) return;
+
+  carousel.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleBannerSwipe();
+  }, { passive: true });
+
+  let isDragging = false;
+  carousel.addEventListener('mousedown', e => {
+    isDragging = true;
+    touchStartX = e.clientX;
+  });
+  carousel.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    isDragging = false;
+    touchEndX = e.clientX;
+    handleBannerSwipe();
+  });
+}
+
+function handleBannerSwipe() {
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 30) {
+    if (diff > 0) {
+      currentSlide = (currentSlide + 1) % 3;
+    } else {
+      currentSlide = (currentSlide - 1 + 3) % 3;
+    }
+    setSlide(currentSlide);
+    startSlideLoop();
+  }
 }
 
 /* ── filtro categorías ── */
@@ -1643,7 +1729,7 @@ function resetCheckout() {
 /* ── init ── */
 document.getElementById('fx').textContent  = 'Bs ' + FX.toFixed(2).replace('.',',');
 document.getElementById('wfx').textContent = 'Bs ' + FX.toFixed(2).replace('.',',');
-renderMenu(); renderBag(); startSlideLoop(); go('menu');
+renderMenu(); renderBag(); startSlideLoop(); initBannerTouch(); go('menu');
 </script>
 </body>
 </html>
