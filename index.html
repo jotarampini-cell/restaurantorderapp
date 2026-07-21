@@ -127,16 +127,25 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .menu-head .facts{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
 .menu-head .facts span{display:flex;align-items:center;gap:5px;font-size:12px;
   color:var(--ink-2);font-weight:500}
-/* ══════════ BANNER ROTATIVO PROMO ══════════ */
-.promo-slider-wrap { padding: 14px 16px 4px; position: relative; }
+/* ══════════ STORE STATUS BAR ══════════ */
+.store-status-bar {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 7px 16px; font-size: 11px; font-weight: 600; color: var(--ink-2);
+  background: rgba(0,0,0,0.02); border-bottom: 1px solid var(--hair);
+}
+.store-status-bar span { display: flex; align-items: center; gap: 4px; }
+.store-status-bar svg { width: 13px; height: 13px; stroke-width: 1.8; }
+
+/* ══════════ BANNER ROTATIVO PROMO HERO ══════════ */
+.promo-slider-wrap { padding: 14px 16px 6px; position: relative; }
 .promo-carousel {
-  width: 100%; height: 145px; border-radius: 22px; position: relative; overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  width: 100%; height: 180px; border-radius: 24px; position: relative; overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.16);
 }
 .promo-slide {
   position: absolute; inset: 0; opacity: 0; pointer-events: none;
   transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
-  transform: scale(0.96); padding: 16px 18px; display: flex; flex-direction: column;
+  transform: scale(0.96); padding: 20px 22px; display: flex; flex-direction: column;
   justify-content: space-between; color: #fff;
 }
 .promo-slide.active { opacity: 1; pointer-events: auto; transform: scale(1); }
@@ -147,17 +156,17 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 
 .promo-tag {
   display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800;
-  letter-spacing: .06em; text-transform: uppercase; background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.25); padding: 4px 10px; border-radius: 99px; width: fit-content;
+  letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 99px; width: fit-content;
 }
-.promo-title { font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-top: 4px; }
-.promo-sub { font-size: 12px; opacity: 0.88; margin-top: 2px; }
-.promo-code-pill { font-size: 11px; font-weight: 800; background: #fff; color: #111827; padding: 4px 10px; border-radius: 8px; display: inline-block; }
+.promo-title { font-size: 22px; font-weight: 800; line-height: 1.15; letter-spacing: -0.6px; margin-top: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.promo-sub { font-size: 13px; opacity: 0.92; margin-top: 3px; }
+.promo-code-pill { font-size: 12px; font-weight: 800; background: #fff; color: #111827; padding: 6px 12px; border-radius: 9px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 
-.promo-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
-.pdot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.18); cursor: pointer; transition: all .3s ease; }
-.pdot.active { width: 22px; border-radius: 99px; background: var(--ink); }
+.promo-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.pdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.18); cursor: pointer; transition: all .3s ease; }
+.pdot.active { width: 24px; border-radius: 99px; background: var(--ink); }
 
 /* ══════════ CATEGORÍAS SOFISTICADAS (ESTILO RAPPI / PEDIDOSYA) ══════════ */
 .cat-grid-wrap { padding: 10px 0 4px; }
@@ -563,9 +572,20 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             <div class="iconbtn" onclick="toggleSearch()" title="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></div>
           </div>
         </div>
-        <!-- SEARCH BAR -->
-        <div id="searchWrap" class="hidden" style="padding:10px 16px; background:rgba(245,245,247,.9); border-bottom:1px solid var(--hair);">
-          <input type="text" id="searchInput" class="input" placeholder="🔍 Buscar plato, carne o bebida..." oninput="doSearch(this.value)" style="border-radius:99px; padding:10px 16px; font-size:13px;">
+        <!-- STORE COMPACT STATUS BAR -->
+        <div class="store-status-bar">
+          <span style="color:var(--green)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--green)"><circle cx="12" cy="12" r="9"/></svg>
+            Abierto
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            25–35 min
+          </span>
+          <span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 13h11v5H3zM14 8h4l3 4v6h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Delivery activo
+          </span>
         </div>
         <!-- ══ BANNER ROTATIVO PROMO ══ -->
         <div class="promo-slider-wrap">
@@ -691,24 +711,10 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           </div>
         </div>
 
-        <!-- ══ CABECERA DE LISTA DE PLATOS ══ -->
-        <div class="menu-head" style="padding-top:12px;">
-          <div class="big">Hoy en la parrilla</div>
-          <div class="sub">Al carbón, al punto que pidas.</div>
-          <div class="facts">
-            <span style="color:var(--green)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--green)"><circle cx="12" cy="12" r="9"/></svg>
-              Abierto
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              25–35 min
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 13h11v5H3zM14 8h4l3 4v6h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-              Delivery
-            </span>
-          </div>
+        <!-- ══ SECCIÓN PLATOS ══ -->
+        <div style="padding:14px 20px 4px; font-size:18px; font-weight:800; letter-spacing:-0.03em; color:var(--fg); display:flex; align-items:center; justify-content:space-between;">
+          <span>Nuestra Carta</span>
+          <span style="font-size:12px; font-weight:600; color:var(--ink-2);">Al carbón 🔥</span>
         </div>
         <div class="list" id="listHost"></div>
         <div style="height:110px"></div>
