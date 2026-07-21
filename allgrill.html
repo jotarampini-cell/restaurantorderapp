@@ -1188,7 +1188,12 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
     <div class="scroll" id="menuScroll">
       <div class="screen" id="s-menu">
         <div class="navbar">
-          <div class="brand">All Grill</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="iconbtn" onclick="goHome()" title="Volver al Inicio" style="width:32px; height:32px; background:rgba(0,0,0,0.05); border:1px solid rgba(0,0,0,0.08);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:16px; height:16px;"><path d="M15 18l-6-6 6-6"/></svg>
+            </div>
+            <div class="brand" onclick="goHome()" style="cursor:pointer;">All Grill</div>
+          </div>
           <div class="nb-r">
             <div class="fxpill">BCV <b id="fx">Bs 36,80</b></div>
             <div class="iconbtn" onclick="toggleSearch()" title="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></div>
@@ -2081,6 +2086,14 @@ function enter(mode = 'delivery'){
     document.getElementById('bag').style.display = 'flex';
     renderBag();
     if(modeNotice) modeNotice.classList.add('hidden');
+  }
+}
+
+function goHome() {
+  const w = document.getElementById('s-welcome');
+  if (w) {
+    w.classList.remove('hide');
+    w.scrollTop = 0;
   }
 }
 function go(where){
