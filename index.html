@@ -2111,6 +2111,8 @@ function goHome() {
     w.scrollTop = 0;
   }
 }
+const scrolls = { menu: 'menuScroll', cart: 'cartScroll', checkout: 'coScroll' };
+
 function go(where){
   if(where === 'checkout' && cart.length === 0){
     toast('Agrega algo al pedido primero');
