@@ -100,27 +100,41 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .welcome-body h1 { font-size: clamp(48px,13vw,68px); line-height: .93; letter-spacing: -.05em; font-weight: 800; color: #fff; }
 .welcome-body .tagline { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.45; margin-top: 10px; max-width: 320px; }
 
-/* Botones Duales Hero */
-.w-cta-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+/* Apple Liquid Glassmorphism Hero Buttons */
+.w-cta-group { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+
 .w-cta-primary {
-  width: 100%; height: 54px; border: none; border-radius: 18px; cursor: pointer;
-  font-family: var(--font); font-weight: 700; font-size: 15px; letter-spacing: -.01em; color: #fff;
-  background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-  box-shadow: 0 10px 24px rgba(230,57,70,0.38);
+  width: 100%; height: 58px; border-radius: 20px; cursor: pointer;
+  font-family: var(--font); font-weight: 700; font-size: 16px; letter-spacing: -.01em; color: #ffffff;
+  background: rgba(220, 38, 38, 0.42);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 150, 150, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 12px 36px rgba(220, 38, 38, 0.4);
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, background .2s, box-shadow .2s;
 }
-.w-cta-primary:active { transform: scale(.97); }
+.w-cta-primary:hover, .w-cta-primary:active {
+  transform: scale(.98);
+  background: rgba(220, 38, 38, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 16px 40px rgba(220, 38, 38, 0.5);
+}
 
 .w-cta-secondary {
-  width: 100%; height: 50px; border: 1px solid rgba(255,255,255,0.28); border-radius: 18px; cursor: pointer;
-  font-family: var(--font); font-weight: 700; font-size: 14px; letter-spacing: -.01em; color: #fff;
-  background: rgba(255,255,255,0.12); backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  width: 100%; height: 56px; border-radius: 20px; cursor: pointer;
+  font-family: var(--font); font-weight: 700; font-size: 15px; letter-spacing: -.01em; color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 10px 30px rgba(0, 0, 0, 0.28);
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  transition: transform .2s, background .2s;
+  transition: transform .2s, background .2s, box-shadow .2s;
 }
-.w-cta-secondary:active { transform: scale(.97); background: rgba(255,255,255,0.2); }
+.w-cta-secondary:hover, .w-cta-secondary:active {
+  transform: scale(.98);
+  background: rgba(255, 255, 255, 0.22);
+}
 
 /* Indicador de scroll */
 .w-scroll-down {
@@ -149,7 +163,7 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 }
 .w-card-tag {
   font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-  color: #f4a261; margin-bottom: 6px; display: inline-block;
+  color: #f4a261; margin-bottom: 6px; display: inline-flex; align-items: center; gap: 6px;
 }
 .w-card h2 { font-size: 21px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.2; }
 .w-card p { font-size: 13.5px; color: rgba(255,255,255,0.72); line-height: 1.6; margin-top: 8px; }
@@ -175,6 +189,18 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .w-dish-info h4 { font-size: 14px; font-weight: 700; color: #fff; }
 .w-dish-info p { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .w-dish-price { font-size: 13px; font-weight: 800; color: #f4a261; margin-top: 8px; }
+
+/* Galería Instagram Showcase */
+.insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.insta-item { position: relative; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.insta-item:hover img { transform: scale(1.08); }
+.insta-overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.45); display: flex;
+  align-items: center; justify-content: center; opacity: 0; transition: opacity .25s ease;
+  font-size: 11px; font-weight: 800; color: #fff;
+}
+.insta-item:hover .insta-overlay, .insta-item:active .insta-overlay { opacity: 1; }
 
 .w-store-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 14px; margin-top: 12px; }
 .w-store-name { font-size: 14px; font-weight: 700; color: #fff; }
@@ -639,11 +665,12 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           <p class="tagline">Carnes a la brasa, como debe ser.<br>Selecciona la experiencia que deseas hoy:</p>
           <div class="w-cta-group">
             <button class="w-cta-primary" onclick="enter('delivery')">
-              🛵 Delivery u Ordenar Online
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Delivery u Ordenar Online
             </button>
             <button class="w-cta-secondary" onclick="enter('dinein')">
-              📖 Menú Restaurante (Mesa)
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Menú Restaurante (Mesa)
             </button>
           </div>
           <div class="w-scroll-down" onclick="document.getElementById('wLanding').scrollIntoView({behavior:'smooth'})">
@@ -658,7 +685,10 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
 
         <!-- Sección 1: Nuestra Historia -->
         <div class="w-card">
-          <span class="w-card-tag">🪵 NUESTRA PASIÓN</span>
+          <span class="w-card-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            NUESTRA PASIÓN
+          </span>
           <h2>El Arte de la Brasa Auténtica</h2>
           <p>En All Grill seleccionamos cortes premium de res, cerdo y ave con el aroma inconfundible del carbón vegetal y leña. Cada plato se sazona al momento y se cocina al punto exacto.</p>
           <div class="w-stats-grid">
@@ -675,14 +705,20 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
 
         <!-- Sección 2: Maestros Parrilleros -->
         <div class="w-card">
-          <span class="w-card-tag">👨‍🍳 EXPERIENCIA GASTRONÓMICA</span>
+          <span class="w-card-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 10.59 0A4 4 0 0 1 18 13.87V21H6v-7.13z"/><line x1="6" y1="17" x2="18" y2="17"/></svg>
+            EXPERIENCIA GASTRONÓMICA
+          </span>
           <h2>Maestros del Punto Perfecto</h2>
           <p>Nuestros parrilleros dominan el control de temperatura y maduración. Acompañamos cada plato con nuestra icónica guasacaca criolla y yuca al mojo de la casa.</p>
         </div>
 
         <!-- Sección 3: Platos Emblemáticos -->
         <div class="w-card">
-          <span class="w-card-tag">⭐ ESPECIALIDADES</span>
+          <span class="w-card-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ESPECIALIDADES
+          </span>
           <h2>Platos Estrella de la Casa</h2>
           <div class="w-dish-scroll">
             <div class="w-dish-item" onclick="enter('delivery'); setTimeout(()=>openSheet('par'), 300)">
@@ -704,33 +740,67 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
           </div>
         </div>
 
-        <!-- Sección 4: Ubicación y Contacto -->
+        <!-- Sección 4: Galería Instagram Premium -->
         <div class="w-card">
-          <span class="w-card-tag">📍 UBICACIÓN & HORARIOS</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div>
+              <span class="w-card-tag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                INSTAGRAM FEED
+              </span>
+              <h2 style="font-size:20px;">@allgrill.ve</h2>
+            </div>
+            <button class="w-store-btn" style="flex:none; padding:6px 12px; background:rgba(255,255,255,0.15);" onclick="window.open('https://instagram.com','_blank')">Seguir ➔</button>
+          </div>
+          <p style="font-size:13px; margin-bottom:12px;">Sabor, fuego y pasión en cada detalle. Síguenos en nuestras redes.</p>
+
+          <div class="insta-grid">
+            <div class="insta-item">
+              <img src="Images/Home.jpg" alt="Parrilla All Grill">
+              <div class="insta-overlay">❤️ 1.4k</div>
+            </div>
+            <div class="insta-item">
+              <img src="Images/Parrilla mixta.jpg" alt="Parrilla mixta">
+              <div class="insta-overlay">❤️ 2.8k</div>
+            </div>
+            <div class="insta-item">
+              <img src="Images/Costillas BBQ.jpg" alt="Costillas BBQ">
+              <div class="insta-overlay">❤️ 3.1k</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 5: Ubicación y Contacto -->
+        <div class="w-card">
+          <span class="w-card-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f4a261" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            UBICACIÓN & HORARIOS
+          </span>
           <h2>Visítanos en nuestras sedes</h2>
           <p>Atención continuada de Lunes a Domingo de 11:30 AM a 10:30 PM.</p>
           
           <div class="w-store-card">
-            <div class="w-store-name">📍 Sede Valencia Norte</div>
+            <div class="w-store-name">Sede Valencia Norte</div>
             <div class="w-store-addr">Av. Bolívar Norte, Sector El Viñedo</div>
             <div class="w-store-actions">
-              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">🗺️ Google Maps</div>
-              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">💬 WhatsApp</div>
+              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
+              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
             </div>
           </div>
 
           <div class="w-store-card">
-            <div class="w-store-name">📍 Sede El Trigal / Naguanagua</div>
+            <div class="w-store-name">Sede El Trigal / Naguanagua</div>
             <div class="w-store-addr">C.C. Paseo Las Industrias, Valencia</div>
             <div class="w-store-actions">
-              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">🗺️ Google Maps</div>
-              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">💬 WhatsApp</div>
+              <div class="w-store-btn" onclick="window.open('https://maps.google.com','_blank')">Google Maps</div>
+              <div class="w-store-btn" onclick="window.open('https://wa.me/584244517727','_blank')">WhatsApp</div>
             </div>
           </div>
         </div>
 
         <button class="w-cta-primary mt-4" onclick="enter('delivery')">
-          🛵 Comenzar Pedido Online ➔
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Comenzar Pedido Online ➔
         </button>
 
       </div>
