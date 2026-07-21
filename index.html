@@ -188,11 +188,41 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
 .w-card-light-accent .ceo-quote-box p { color: #0a0503 !important; }
 .w-card-light-accent .ceo-author { color: rgba(10,5,3,0.6) !important; }
 
+/* ══ ANIMACIONES DE ENTRADA Y DINAMISMO ══ */
+.w-card.reveal-up {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.w-card.reveal-up.in-view {
+  opacity: 1; transform: translateY(0);
+}
+
+/* Ecualizador Animado de Audio CEO */
+.eq-bars { display: flex; align-items: flex-end; gap: 2.5px; height: 14px; margin-right: 4px; }
+.eq-bars span {
+  width: 3px; background: #ffffff; border-radius: 2px;
+  animation: eqAnim 0.7s infinite ease-in-out alternate;
+}
+.eq-bars span:nth-child(1) { height: 60%; animation-delay: 0.1s; }
+.eq-bars span:nth-child(2) { height: 100%; animation-delay: 0.25s; }
+.eq-bars span:nth-child(3) { height: 40%; animation-delay: 0.4s; }
+.eq-bars span:nth-child(4) { height: 80%; animation-delay: 0.15s; }
+@keyframes eqAnim {
+  0% { height: 20%; }
+  100% { height: 100%; }
+}
+
 /* Trilogía Sobria Alto Contraste 01-02-03 */
 .ritual-num-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .ritual-num-item {
   background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18);
   border-radius: 18px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start;
+  cursor: pointer; transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.ritual-num-item.active-step, .ritual-num-item:hover {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.45) !important;
+  transform: translateX(4px);
 }
 .ritual-num-badge {
   font-size: 17px; font-weight: 800; color: #ffffff; background: rgba(255,255,255,0.18);
@@ -929,6 +959,9 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
                 LIDERAZGO & VISIÓN
               </span>
               <button id="ceoAudioBtn" class="w-store-btn" style="flex:none; padding:6px 12px; background:rgba(0,0,0,0.65); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.3); pointer-events:auto; display:flex; align-items:center; gap:6px;" onclick="toggleCeoAudio(event)">
+                <div id="ceoEqBars" class="eq-bars hidden">
+                  <span></span><span></span><span></span><span></span>
+                </div>
                 <svg id="ceoAudioIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
                 <span id="ceoAudioTxt">Activar Audio</span>
               </button>
@@ -2313,6 +2346,7 @@ function toggleCeoAudio(e) {
   const v = document.querySelector('.ceo-full-video');
   const txt = document.getElementById('ceoAudioTxt');
   const icon = document.getElementById('ceoAudioIcon');
+  const eq = document.getElementById('ceoEqBars');
   if (!v) return;
 
   v.muted = !v.muted;
@@ -2320,10 +2354,37 @@ function toggleCeoAudio(e) {
     v.play().catch(() => {});
     if (txt) txt.textContent = 'Silenciar';
     if (icon) icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+    if (eq) eq.classList.remove('hidden');
   } else {
     if (txt) txt.textContent = 'Activar Audio';
     if (icon) icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    if (eq) eq.classList.add('hidden');
   }
+}
+
+/* ── Scroll Reveal & Dynamic Animations Manager ── */
+function initScrollRevealAndCounters() {
+  const cards = document.querySelectorAll('#wLanding .w-card');
+  cards.forEach(card => card.classList.add('reveal-up'));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  cards.forEach(card => observer.observe(card));
+
+  // Toque interactivo en Ritual del Parrillero
+  const ritualItems = document.querySelectorAll('.ritual-num-item');
+  ritualItems.forEach(item => {
+    item.addEventListener('click', () => {
+      ritualItems.forEach(x => x.classList.remove('active-step'));
+      item.classList.add('active-step');
+    });
+  });
 }
 
 function initVideoCarouselManager() {
@@ -2360,7 +2421,7 @@ function initVideoCarouselManager() {
 /* ── init ── */
 document.getElementById('fx').textContent  = 'Bs ' + FX.toFixed(2).replace('.',',');
 document.getElementById('wfx').textContent = 'Bs ' + FX.toFixed(2).replace('.',',');
-renderMenu(); renderBag(); startSlideLoop(); initBannerTouch(); initVideoCarouselManager(); go('menu');
+renderMenu(); renderBag(); startSlideLoop(); initBannerTouch(); initVideoCarouselManager(); initScrollRevealAndCounters(); go('menu');
 </script>
 </body>
 </html>
