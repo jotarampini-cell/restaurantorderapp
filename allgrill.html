@@ -148,14 +148,37 @@ body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased
   60% { transform: translateY(3px); }
 }
 
+/* Ambient Parallax Motion Glow Backgrounds */
+.ambient-glow-1 {
+  position: absolute; top: 8%; left: -15%; width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(55px); pointer-events: none; z-index: 1;
+  animation: glowFloat1 9s infinite ease-in-out alternate;
+}
+.ambient-glow-2 {
+  position: absolute; top: 48%; right: -15%; width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(65px); pointer-events: none; z-index: 1;
+  animation: glowFloat2 11s infinite ease-in-out alternate;
+}
+@keyframes glowFloat1 {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(80px) scale(1.18); }
+}
+@keyframes glowFloat2 {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-80px) scale(1.22); }
+}
+
 /* Landing Page Content abajo (Alto Contraste Sobrio App Store) */
 .w-landing-content {
   position: relative; z-index: 4; padding: 28px 20px 60px;
-  background: #0a0503;
+  background: #0a0503; overflow: hidden;
   display: flex; flex-direction: column; gap: 28px;
 }
 
 .w-card {
+  position: relative; z-index: 2;
   background: rgba(255,255,255,0.08); backdrop-filter: blur(36px) saturate(200%);
   -webkit-backdrop-filter: blur(36px) saturate(200%);
   border: 1.5px solid rgba(255,255,255,0.22); border-radius: 26px; padding: 24px 20px;
@@ -844,6 +867,8 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
 
       <!-- ══ LANDING SECTIONS SCROLL ABAJO (SOBRIO APPS STORE EDITORIAL) ══ -->
       <div class="w-landing-content" id="wLanding">
+        <div class="ambient-glow-1"></div>
+        <div class="ambient-glow-2"></div>
 
         <!-- Sección 1: Editorial Origen & Galería de Historias -->
         <div class="w-card">
@@ -881,11 +906,11 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
 
           <div class="w-stats-grid">
             <div class="w-stat-item">
-              <div class="w-stat-num">100%</div>
+              <div class="w-stat-num" id="statNum1" data-val="100" data-suffix="%">0%</div>
               <div class="w-stat-lbl">Carbón Vegetal</div>
             </div>
             <div class="w-stat-item">
-              <div class="w-stat-num">+15</div>
+              <div class="w-stat-num" id="statNum2" data-val="15" data-prefix="+">0</div>
               <div class="w-stat-lbl">Años de Experiencia</div>
             </div>
           </div>
@@ -2362,6 +2387,24 @@ function toggleCeoAudio(e) {
   }
 }
 
+function runLiveCounter(el) {
+  if (!el || el.dataset.animated) return;
+  el.dataset.animated = "true";
+  const target = parseInt(el.dataset.val, 10) || 0;
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  let count = 0;
+  const step = Math.max(1, Math.ceil(target / 35));
+  const timer = setInterval(() => {
+    count += step;
+    if (count >= target) {
+      count = target;
+      clearInterval(timer);
+    }
+    el.textContent = prefix + count + suffix;
+  }, 35);
+}
+
 /* ── Scroll Reveal & Dynamic Animations Manager ── */
 function initScrollRevealAndCounters() {
   const cards = document.querySelectorAll('#wLanding .w-card');
@@ -2371,6 +2414,10 @@ function initScrollRevealAndCounters() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        const c1 = entry.target.querySelector('#statNum1');
+        const c2 = entry.target.querySelector('#statNum2');
+        if (c1) runLiveCounter(c1);
+        if (c2) runLiveCounter(c2);
       }
     });
   }, { threshold: 0.15 });
