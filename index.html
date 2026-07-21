@@ -1145,16 +1145,27 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
             UBICACIÓN & RECORRIDOS
           </span>
           <h2>Visítanos en nuestras sedes</h2>
-          <p>Mira el video de recorrido para llegar fácilmente a cada una de nuestras sedes. Atendemos de Lunes a Domingo de 11:30 AM a 10:30 PM.</p>
+          <p>Reproduce el video de recorrido para ver la ruta exacta de llegada a cada sede. Atención de Lunes a Domingo de 11:30 AM a 10:30 PM.</p>
           
           <!-- Sede 1: El Viñedo -->
           <div class="w-store-card">
-            <div class="w-store-photo" style="height:190px;">
-              <video src="Videos/Sede El Viñedo.mp4" muted loop playsinline autoplay style="width:100%; height:100%; object-fit:cover; display:block;"></video>
-              <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.65); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); padding:4px 10px; border-radius:8px; font-size:10px; font-weight:800; color:#fff;">
-                🚗 Video Recorrido de Llegada
+            <div class="w-store-photo" style="height:270px; position:relative; overflow:hidden;">
+              <video src="Videos/Sede El Viñedo.mp4" muted loop playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;"></video>
+              
+              <!-- Badge Elegante -->
+              <div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,0.68); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.3); padding:6px 14px; border-radius:99px; font-size:11px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:2;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>Vídeo de cómo llegar</span>
+              </div>
+
+              <!-- Botón Play / Pausa Interactivo sin sonido -->
+              <div class="store-video-play-btn" onclick="toggleStoreVideo(this)" style="position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25); cursor:pointer; transition:background .3s;">
+                <div class="play-icon-circle" style="width:58px; height:58px; border-radius:50%; background:rgba(255,255,255,0.24); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,0.45); display:grid; place-items:center; box-shadow:0 8px 24px rgba(0,0,0,0.5); transition:transform .2s ease, opacity .3s ease;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
               </div>
             </div>
+
             <div class="w-store-body">
               <div class="w-store-name">📍 Sede El Viñedo</div>
               <div class="w-store-addr">Av. Bolívar Norte, Sector El Viñedo</div>
@@ -1167,12 +1178,23 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; 
 
           <!-- Sede 2: C.C. Chirikayen -->
           <div class="w-store-card">
-            <div class="w-store-photo" style="height:190px;">
-              <video src="Videos/Sede C.C Chirikayen.mp4" muted loop playsinline autoplay style="width:100%; height:100%; object-fit:cover; display:block;"></video>
-              <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.65); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); padding:4px 10px; border-radius:8px; font-size:10px; font-weight:800; color:#fff;">
-                🚗 Video Recorrido de Llegada
+            <div class="w-store-photo" style="height:270px; position:relative; overflow:hidden;">
+              <video src="Videos/Sede C.C Chirikayen.mp4" muted loop playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;"></video>
+              
+              <!-- Badge Elegante -->
+              <div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,0.68); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.3); padding:6px 14px; border-radius:99px; font-size:11px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:2;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>Vídeo de cómo llegar</span>
+              </div>
+
+              <!-- Botón Play / Pausa Interactivo sin sonido -->
+              <div class="store-video-play-btn" onclick="toggleStoreVideo(this)" style="position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25); cursor:pointer; transition:background .3s;">
+                <div class="play-icon-circle" style="width:58px; height:58px; border-radius:50%; background:rgba(255,255,255,0.24); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,0.45); display:grid; place-items:center; box-shadow:0 8px 24px rgba(0,0,0,0.5); transition:transform .2s ease, opacity .3s ease;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
               </div>
             </div>
+
             <div class="w-store-body">
               <div class="w-store-name">📍 Sede C.C. Chirikayen</div>
               <div class="w-store-addr">C.C. Chirikayen, Sector El Trigal / Naguanagua</div>
@@ -2413,7 +2435,32 @@ function resetCheckout() {
   go('menu');
 }
 
-/* ── Control Inteligente de Videos (Autoplay deslizable con pausa) ── */
+/* ── Toggle Play/Pause Video Recorrido de Sedes (Sin Sonido) ── */
+function toggleStoreVideo(overlay) {
+  const container = overlay.closest('.w-store-photo');
+  const video = container ? container.querySelector('video') : null;
+  const iconCircle = overlay.querySelector('.play-icon-circle');
+  if (!video) return;
+
+  video.muted = true; // Reproducción siempre sin sonido
+
+  if (video.paused) {
+    video.play().catch(() => {});
+    if (iconCircle) {
+      iconCircle.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+      overlay.style.background = 'rgba(0,0,0,0.05)';
+      setTimeout(() => { iconCircle.style.opacity = '0.35'; }, 1200);
+    }
+  } else {
+    video.pause();
+    if (iconCircle) {
+      iconCircle.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+      overlay.style.background = 'rgba(0,0,0,0.28)';
+      iconCircle.style.opacity = '1';
+    }
+  }
+}
+
 /* ── Toggle Audio CEO Video ── */
 function toggleCeoAudio(e) {
   if (e) e.stopPropagation();
